@@ -830,7 +830,8 @@ footer {
       <div class="form-card-title">Send Us a Message</div>
       <div class="form-card-sub">Tell us about your business and what you need. We will get back to you within 24 hours.</div>
       <div class="form-body" id="formBody">
-        <form action="https://formspree.io/f/maqpgdnj" method="POST">
+        <form action="https://formspree.io/f/maqpgdnj" method="POST" id="enquiryForm">
+          <input type="hidden" name="_next" id="nextUrl">
           <div class="form-row">
             <div class="form-group">
               <label>Your Name</label>
@@ -928,6 +929,15 @@ footer {
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 
+
+  // Personalise thank you page with submitter name
+  const form = document.getElementById('enquiryForm');
+  if (form) {
+    form.addEventListener('submit', function() {
+      const nameVal = form.querySelector('input[name="name"]').value.trim().split(' ')[0];
+      document.getElementById('nextUrl').value = window.location.origin + '/thank-you.html?name=' + encodeURIComponent(nameVal);
+    });
+  }
 </script>
 
 </body>
