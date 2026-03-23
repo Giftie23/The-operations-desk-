@@ -478,6 +478,51 @@ footer {
   footer { flex-direction: column; gap: 28px; padding: 40px 24px; }
   .footer-right { align-items: flex-start; }
 }
+
+  /* SUCCESS STATE */
+  .success-ring-wrap {
+    position: relative; width: 80px; height: 80px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1.5px solid rgba(59,130,246,0.2);
+    animation: successPulse 2.5s ease-in-out infinite;
+  }
+  .success-ring:nth-child(2) { inset: -10px; border-color: rgba(59,130,246,0.1); animation-delay: 0.5s; }
+  @keyframes successPulse {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+  }
+  .success-check {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: rgba(59,130,246,0.12); border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; position: relative; z-index: 1; color: var(--gold);
+  }
+  .success-kicker {
+    font-family: 'DM Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .success-kicker::before, .success-kicker::after { content: ''; width: 16px; height: 1px; background: var(--gold); }
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 600; color: var(--cream); margin-bottom: 10px; text-align: center;
+  }
+  .success-body { font-size: 13.5px; color: var(--cream-dim); line-height: 1.75; margin-bottom: 24px; text-align: center; font-weight: 300; }
+  .success-next {
+    background: rgba(247,243,236,0.04); border: 1px solid var(--line);
+    border-radius: 4px; padding: 20px 22px; margin-bottom: 20px; text-align: left;
+  }
+  .success-next-title {
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+  }
+  .success-next-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 12.5px; color: var(--cream-dim); font-weight: 300; line-height: 1.6; }
+  .success-next-item:last-child { margin-bottom: 0; }
+  .success-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+
 </style>
 
 </head>
@@ -830,8 +875,7 @@ footer {
       <div class="form-card-title">Send Us a Message</div>
       <div class="form-card-sub">Tell us about your business and what you need. We will get back to you within 24 hours.</div>
       <div class="form-body" id="formBody">
-        <form action="https://formspree.io/f/maqpgdnj" method="POST" id="enquiryForm">
-          <input type="hidden" name="_next" id="nextUrl">
+        <form id="enquiryForm">
           <div class="form-row">
             <div class="form-group">
               <label>Your Name</label>
@@ -870,7 +914,7 @@ footer {
             <label>Tell Us About Your Situation</label>
             <textarea name="message" placeholder="What is going on in your business right now? What feels broken, missing, or overwhelming? The more context you give us, the better." required></textarea>
           </div>
-          <button type="submit" class="submit-btn">Send Message ↗</button>
+          <button type="button" onclick="submitForm()" class="submit-btn" id="submitBtn">Send Message ↗</button>
         </form>
         <div class="or-line">or</div>
         <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn">
@@ -879,12 +923,22 @@ footer {
         <p class="form-note">Not ready for a call? The form is a great first step.<br>We will follow up personally within 24 hours.</p>
       </div>
       <div class="form-success" id="formSuccess">
-        <div class="success-check">✓</div>
-        <div class="success-title">Message received.</div>
-        <div class="success-body">Thank you for reaching out. We will review your enquiry and get back to you personally within 24 hours.<br><br>If you would rather speak sooner, book a discovery call below.</div>
-        <br>
-        <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn" style="margin-top:8px;">
-          📅 &nbsp; Book a Discovery Call
+        <div class="success-ring-wrap">
+          <div class="success-ring"></div>
+          <div class="success-ring"></div>
+          <div class="success-check">✓</div>
+        </div>
+        <div class="success-kicker">Message Received</div>
+        <div class="success-title" id="successTitle">Thank you.</div>
+        <div class="success-body" id="successBody">Your message has landed safely with us. The Operations Desk will review your enquiry and reach out to you personally within 24 hours.</div>
+        <div class="success-next">
+          <div class="success-next-title">What happens next</div>
+          <div class="success-next-item"><div class="success-dot"></div><span>We will read through everything you shared and come back with a personal response.</span></div>
+          <div class="success-next-item"><div class="success-dot"></div><span>If your situation calls for a conversation, we will suggest a time to connect.</span></div>
+          <div class="success-next-item"><div class="success-dot"></div><span>Or you can skip the wait and book a call directly below.</span></div>
+        </div>
+        <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn" style="margin-top:4px;">
+          📅 &nbsp; Book a Discovery Call Now
         </a>
       </div>
     </div>
@@ -930,13 +984,52 @@ footer {
 
 
 
-  // Personalise thank you page with submitter name
-  const form = document.getElementById('enquiryForm');
-  if (form) {
-    form.addEventListener('submit', function() {
-      const nameVal = form.querySelector('input[name="name"]').value.trim().split(' ')[0];
-      document.getElementById('nextUrl').value = window.location.origin + '/thank-you.html?name=' + encodeURIComponent(nameVal);
-    });
+
+  // Form submission with personalised thank you
+  async function submitForm() {
+    const form = document.getElementById('enquiryForm');
+    const btn = document.getElementById('submitBtn');
+    const nameVal = form.querySelector('input[name="name"]').value.trim();
+    const email = form.querySelector('input[name="email"]').value.trim();
+
+    // Basic validation
+    const required = form.querySelectorAll('[required]');
+    for (let field of required) {
+      if (!field.value.trim()) { field.focus(); return; }
+    }
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('https://formspree.io/f/maqpgdnj', {
+        method: 'POST', body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        // Personalise the success message
+        const firstName = nameVal.split(' ')[0];
+        const cleaned = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+        document.getElementById('successTitle').textContent = 'Thank you, ' + cleaned + '.';
+        document.getElementById('successBody').textContent =
+          cleaned + ', your message has landed safely with us. The Operations Desk will review your enquiry and reach out to you personally within 24 hours.';
+
+        document.getElementById('formBody').classList.add('hidden');
+        document.getElementById('formSuccess').classList.add('visible');
+        document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        btn.textContent = 'Send Message ↗';
+        btn.disabled = false;
+        alert('Something went wrong. Please email us directly at giftieobeten@gmail.com');
+      }
+    } catch(err) {
+      btn.textContent = 'Send Message ↗';
+      btn.disabled = false;
+      alert('Something went wrong. Please email us directly at giftieobeten@gmail.com');
+    }
   }
 </script>
 
