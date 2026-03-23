@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — The Operations Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #06091a;
+    --ink2: #0b0f24;
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.14);
+    --cream: #F7F3EC;
+    --cream-dim: rgba(247,243,236,0.6);
+    --line: rgba(247,243,236,0.09);
+  }
+  html, body { height: 100%; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 24px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+/* Background glow */
+body::before {
+content: ‘’;
+position: fixed;
+top: -200px; left: 50%; transform: translateX(-50%);
+width: 700px; height: 700px; border-radius: 50%;
+background: radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 65%);
+pointer-events: none;
+}
+
+/* Animated ring */
+.ring-wrap {
+position: relative; margin-bottom: 40px;
+width: 100px; height: 100px;
+display: flex; align-items: center; justify-content: center;
+}
+.ring {
+position: absolute; inset: 0;
+border-radius: 50%;
+border: 1.5px solid rgba(59,130,246,0.25);
+animation: pulse 2.5s ease-in-out infinite;
+}
+.ring:nth-child(2) { inset: -12px; border-color: rgba(59,130,246,0.12); animation-delay: 0.4s; }
+.ring:nth-child(3) { inset: -24px; border-color: rgba(59,130,246,0.06); animation-delay: 0.8s; }
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.5; transform: scale(1.03); }
+}
+.check-circle {
+width: 64px; height: 64px; border-radius: 50%;
+background: var(–blue-dim); border: 1.5px solid var(–blue);
+display: flex; align-items: center; justify-content: center;
+font-size: 26px; position: relative; z-index: 1;
+animation: popIn 0.5s 0.2s both;
+}
+@keyframes popIn {
+from { opacity: 0; transform: scale(0.7); }
+to { opacity: 1; transform: scale(1); }
+}
+
+.kicker {
+font-family: ‘DM Mono’, monospace; font-size: 10px;
+letter-spacing: 0.18em; text-transform: uppercase; color: var(–blue);
+margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 10px;
+animation: rise 0.7s 0.3s both;
+}
+.kicker::before, .kicker::after { content: ‘’; width: 20px; height: 1px; background: var(–blue); }
+
+.headline {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(36px, 7vw, 62px);
+font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+color: var(–cream); margin-bottom: 10px;
+animation: rise 0.7s 0.4s both;
+}
+.headline em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.name-highlight { color: var(–cream); font-weight: 600; font-style: normal; }
+
+.subline {
+font-size: 17px; color: var(–cream-dim); font-weight: 300;
+line-height: 1.75; max-width: 480px; margin: 0 auto 44px;
+animation: rise 0.7s 0.5s both;
+}
+
+.what-next {
+background: rgba(247,243,236,0.04); border: 1px solid var(–line);
+border-radius: 4px; padding: 32px 36px; max-width: 460px; width: 100%;
+margin-bottom: 40px; text-align: left;
+animation: rise 0.7s 0.6s both;
+}
+.what-next-title {
+font-family: ‘DM Mono’, monospace; font-size: 9.5px;
+letter-spacing: 0.16em; text-transform: uppercase; color: var(–blue);
+margin-bottom: 18px;
+}
+.next-item {
+display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;
+}
+.next-item:last-child { margin-bottom: 0; }
+.next-dot {
+width: 6px; height: 6px; border-radius: 50%; background: var(–blue);
+flex-shrink: 0; margin-top: 7px;
+}
+.next-text { font-size: 13.5px; color: var(–cream-dim); line-height: 1.65; font-weight: 300; }
+
+.actions {
+display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 360px;
+animation: rise 0.7s 0.7s both;
+}
+.btn-cal {
+display: flex; align-items: center; justify-content: center; gap: 10px;
+width: 100%; padding: 15px 28px; background: var(–blue); color: #fff;
+font-family: ‘DM Sans’, sans-serif; font-size: 13.5px; font-weight: 600;
+letter-spacing: 0.03em; border-radius: 3px; text-decoration: none;
+transition: opacity 0.2s;
+}
+.btn-cal:hover { opacity: 0.85; }
+.btn-back {
+font-size: 13px; color: var(–cream-dim); text-decoration: none;
+transition: color 0.2s; letter-spacing: 0.02em;
+}
+.btn-back:hover { color: var(–cream); }
+
+.footer-note {
+margin-top: 52px; font-size: 11px; color: rgba(247,243,236,0.2);
+font-family: ‘DM Mono’, monospace; letter-spacing: 0.1em; text-transform: uppercase;
+animation: rise 0.7s 0.8s both;
+}
+
+@keyframes rise {
+from { opacity: 0; transform: translateY(18px); }
+to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+</head>
+<body>
+
+<div class="ring-wrap">
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="check-circle">✓</div>
+</div>
+
+<div class="kicker">Message Received</div>
+
+<h1 class="headline" id="headline">
+  Thank you, <em id="nameDisplay">friend.</em>
+</h1>
+
+<p class="subline" id="subline">
+  Your message has landed safely with us. The Operations Desk will review your enquiry and reach out to you personally within 24 hours.
+</p>
+
+<div class="what-next">
+  <div class="what-next-title">What Happens Next</div>
+  <div class="next-item">
+    <div class="next-dot"></div>
+    <div class="next-text">We will read through everything you shared and come back to you with a thoughtful response, not a generic one.</div>
+  </div>
+  <div class="next-item">
+    <div class="next-dot"></div>
+    <div class="next-text">If your situation calls for a conversation, we will suggest a time to connect properly.</div>
+  </div>
+  <div class="next-item">
+    <div class="next-dot"></div>
+    <div class="next-text">If you would rather not wait, you can book a 30-minute discovery call directly below. No pressure either way.</div>
+  </div>
+</div>
+
+<div class="actions">
+  <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="btn-cal">
+    📅 &nbsp; Book a Discovery Call Now
+  </a>
+  <a href="/" class="btn-back">← Back to The Operations Desk</a>
+</div>
+
+<div class="footer-note">The Operations Desk &nbsp;·&nbsp; theoperationsdesk.netlify.app</div>
+
+<script>
+  // Read name from URL and personalise the page
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name');
+
+  if (name && name.trim().length > 0) {
+    const cleaned = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    document.getElementById('nameDisplay').textContent = cleaned + '.';
+    document.getElementById('nameDisplay').style.fontStyle = 'normal';
+    document.getElementById('nameDisplay').style.color = '#F7F3EC';
+    document.getElementById('subline').textContent =
+      cleaned + ', your message has landed safely with us. The Operations Desk will review your enquiry and reach out to you personally within 24 hours.';
+  }
+</script>
+
+</body>
+</html>
