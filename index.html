@@ -14,9 +14,9 @@
   --ink2:     #0b0f24;
   --ink3:     #101529;
   --ink4:     #1a2040;
-  --gold:     #E8A020;
-  --gold-dim: rgba(232,160,32,0.14);
-  --gold-faint: rgba(232,160,32,0.06);
+  --gold:     #3b82f6;
+  --gold-dim: rgba(59,130,246,0.14);
+  --gold-faint: rgba(59,130,246,0.06);
   --cream:    #F7F3EC;
   --cream-dim: rgba(247,243,236,0.6);
   --cream-faint: rgba(247,243,236,0.07);
@@ -81,7 +81,7 @@ nav.scrolled {
 }
 .nav-links a:hover { color: var(--cream); }
 .nav-cta {
-  padding: 10px 24px; background: var(--gold); color: var(--ink);
+  padding: 10px 24px; background: var(--gold); color: #fff;
   font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em;
   border-radius: 3px; text-decoration: none; transition: opacity 0.2s;
 }
@@ -133,7 +133,7 @@ nav.scrolled {
 }
 .btn-gold {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 16px 32px; background: var(--gold); color: var(--ink);
+  padding: 16px 32px; background: var(--gold); color: #fff;
   font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em;
   text-decoration: none; border-radius: 3px; transition: all 0.2s;
   border: none; cursor: pointer;
@@ -303,7 +303,7 @@ section { position: relative; z-index: 1; }
 .pkg-card.featured { background: var(--gold); border-color: var(--gold); }
 .pkg-badge {
   position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-  background: var(--cream); color: var(--ink); font-family: 'DM Mono', monospace;
+  background: #fff; color: #06091a; font-family: 'DM Mono', monospace;
   font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
   padding: 4px 14px; border-radius: 2px; white-space: nowrap;
 }
@@ -311,23 +311,23 @@ section { position: relative; z-index: 1; }
   font-family: 'DM Mono', monospace; font-size: 9.5px;
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
 }
-.pkg-card.featured .pkg-tier { color: rgba(6,9,26,0.6); }
+.pkg-card.featured .pkg-tier { color: rgba(255,255,255,0.7); }
 .pkg-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 26px; font-weight: 600; color: var(--cream); margin-bottom: 6px;
 }
-.pkg-card.featured .pkg-name { color: var(--ink); }
+.pkg-card.featured .pkg-name { color: #fff; }
 .pkg-sub { font-size: 12.5px; color: var(--cream-dim); margin-bottom: 22px; font-weight: 300; }
-.pkg-card.featured .pkg-sub { color: rgba(6,9,26,0.55); }
+.pkg-card.featured .pkg-sub { color: rgba(255,255,255,0.65); }
 .pkg-divider { height: 1px; background: var(--line); margin-bottom: 22px; }
-.pkg-card.featured .pkg-divider { background: rgba(6,9,26,0.12); }
+.pkg-card.featured .pkg-divider { background: rgba(255,255,255,0.15); }
 .pkg-desc { font-size: 13.5px; color: var(--cream-dim); line-height: 1.75; font-weight: 300; margin-bottom: 22px; }
-.pkg-card.featured .pkg-desc { color: rgba(6,9,26,0.65); }
+.pkg-card.featured .pkg-desc { color: rgba(255,255,255,0.8); }
 .pkg-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 32px; }
 .pkg-item { font-size: 13px; color: var(--cream-dim); padding-left: 18px; position: relative; font-weight: 300; }
-.pkg-card.featured .pkg-item { color: rgba(6,9,26,0.65); }
+.pkg-card.featured .pkg-item { color: rgba(255,255,255,0.8); }
 .pkg-item::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 1px; background: var(--gold); }
-.pkg-card.featured .pkg-item::before { background: rgba(6,9,26,0.3); }
+.pkg-card.featured .pkg-item::before { background: rgba(255,255,255,0.4); }
 .pkg-cta {
   display: block; text-align: center; padding: 13px; border-radius: 3px;
   font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none;
@@ -335,7 +335,7 @@ section { position: relative; z-index: 1; }
 }
 .pkg-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
 .pkg-card.featured .pkg-cta {
-  background: var(--ink); color: var(--cream); border-color: transparent;
+  background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);
 }
 .pkg-card.featured .pkg-cta:hover { background: rgba(6,9,26,0.85); }
 
@@ -362,9 +362,11 @@ section { position: relative; z-index: 1; }
 }
 .direct-link:hover { color: var(--gold); }
 .direct-icon {
-  width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 3px;
-  display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+  width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
 }
+.direct-link:hover .direct-icon { border-color: var(--gold); background: var(--gold-faint); }
 
 /* FORM */
 .form-card {
@@ -391,7 +393,7 @@ select { cursor: pointer; }
 select option { background: var(--ink3); }
 textarea { resize: vertical; min-height: 100px; }
 .submit-btn {
-  width: 100%; padding: 15px; background: var(--gold); color: var(--ink);
+  width: 100%; padding: 15px; background: var(--gold); color: #fff;
   font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
   letter-spacing: 0.04em; border: none; border-radius: 3px;
   cursor: pointer; transition: all 0.2s; margin-top: 6px;
@@ -793,13 +795,31 @@ footer {
           <div class="trust-row"><div class="trust-dot"></div><span class="trust-text">All engagements begin with a clarity call at no cost</span></div>
         </div>
         <div class="contact-direct reveal d4">
-          <a href="mailto:giftieobeten@gmail.com" class="direct-link">
-            <div class="direct-icon">✉️</div>
-            giftieobeten@gmail.com
+          <a href="mailto:giftieobeten@gmail.com" class="direct-link" title="Email us">
+            <div class="direct-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#EA4335" stroke-width="1.5" fill="none"/>
+                <path d="M22 6l-10 7L2 6" stroke="#EA4335" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
           </a>
-          <a href="https://www.instagram.com/theoperationsdesk?igsh=ajJmODVhZDh2eHlr" target="_blank" class="direct-link">
-            <div class="direct-icon">📷</div>
-            @theoperationsdesk on Instagram
+          <a href="https://www.instagram.com/theoperationsdesk?igsh=ajJmODVhZDh2eHlr" target="_blank" class="direct-link" title="Follow us on Instagram">
+            <div class="direct-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igGrad)" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="5" stroke="url(#igGrad)" stroke-width="1.5"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="url(#igGrad)"/>
+                <defs>
+                  <linearGradient id="igGrad" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#f09433"/>
+                    <stop offset="25%" stop-color="#e6683c"/>
+                    <stop offset="50%" stop-color="#dc2743"/>
+                    <stop offset="75%" stop-color="#cc2366"/>
+                    <stop offset="100%" stop-color="#bc1888"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
           </a>
         </div>
       </div>
@@ -814,20 +834,20 @@ footer {
           <div class="form-row">
             <div class="form-group">
               <label>Your Name</label>
-              <input type="text" placeholder="First and last name" required>
+              <input type="text" name="name" placeholder="First and last name" required>
             </div>
             <div class="form-group">
               <label>Business Name</label>
-              <input type="text" placeholder="Your company" required>
+              <input type="text" name="business_name" placeholder="Your company" required>
             </div>
           </div>
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" placeholder="you@yourbusiness.com" required>
+            <input type="email" name="email" placeholder="you@yourbusiness.com" required>
           </div>
           <div class="form-group">
             <label>Business Stage</label>
-            <select required>
+            <select name="business_stage" required>
               <option value="" disabled selected>Where are you right now?</option>
               <option>Just starting out (under 1 year)</option>
               <option>Building and growing (1 to 3 years)</option>
@@ -837,7 +857,7 @@ footer {
           </div>
           <div class="form-group">
             <label>Service Interest</label>
-            <select required>
+            <select name="service_interest" required>
               <option value="" disabled selected>What interests you?</option>
               <option>The Diagnostic</option>
               <option>The Full Build</option>
@@ -847,7 +867,7 @@ footer {
           </div>
           <div class="form-group">
             <label>Tell Us About Your Situation</label>
-            <textarea placeholder="What is going on in your business right now? What feels broken, missing, or overwhelming? The more context you give us, the better." required></textarea>
+            <textarea name="message" placeholder="What is going on in your business right now? What feels broken, missing, or overwhelming? The more context you give us, the better." required></textarea>
           </div>
           <button type="submit" class="submit-btn">Send Message ↗</button>
         </form>
@@ -889,7 +909,7 @@ footer {
       <a href="#for-section">Who It's For</a>
       <a href="#services">Services</a>
       <a href="#packages">Packages</a>
-      <a href="https://www.instagram.com/theoperationsdesk?igsh=ajJmODVhZDh2eHlr" target="_blank">Instagram</a>
+      <a href="https://www.instagram.com/theoperationsdesk?igsh=ajJmODVhZDh2eHlr" target="_blank" title="Instagram">Instagram</a>
       <a href="mailto:giftieobeten@gmail.com">Email</a>
     </div>
     <div class="footer-copy">© 2025 The Operations Desk. All rights reserved.</div>
