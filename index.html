@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Operations Desk — Operational Architecture for Founders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:      #06091a;
+  --ink2:     #0b0f24;
+  --ink3:     #101529;
+  --ink4:     #1a2040;
+  --gold:     #E8A020;
+  --gold-dim: rgba(232,160,32,0.14);
+  --gold-faint: rgba(232,160,32,0.06);
+  --cream:    #F7F3EC;
+  --cream-dim: rgba(247,243,236,0.6);
+  --cream-faint: rgba(247,243,236,0.07);
+  --line:     rgba(247,243,236,0.09);
+  --line-strong: rgba(247,243,236,0.15);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--ink4); border-radius: 2px; }
+
+/* TEXTURE OVERLAY */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.018;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 28px 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.35s;
+}
+nav.scrolled {
+  background: rgba(6,9,26,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 64px;
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logomark {
+  width: 30px; height: 30px; border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center; border-radius: 3px;
+  position: relative; flex-shrink: 0;
+}
+.nav-logomark::after {
+  content: ''; width: 10px; height: 10px;
+  background: var(--gold); border-radius: 1px;
+}
+.nav-brand {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream);
+}
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav-links a {
+  font-size: 13px; color: var(--cream-dim); text-decoration: none;
+  letter-spacing: 0.01em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cream); }
+.nav-cta {
+  padding: 10px 24px; background: var(--gold); color: var(--ink);
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em;
+  border-radius: 3px; text-decoration: none; transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.88; }
+
+/* HERO */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 140px 64px 100px; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -120px; right: -80px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,160,32,0.07) 0%, transparent 68%);
+  pointer-events: none;
+}
+.hero-glow-2 {
+  position: absolute; bottom: -100px; left: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,160,32,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 860px; }
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'DM Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 36px;
+  opacity: 0; animation: rise 0.9s 0.15s forwards;
+}
+.hero-kicker::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(54px, 7.5vw, 96px);
+  font-weight: 600; line-height: 1.02; letter-spacing: -0.02em;
+  color: var(--cream); margin-bottom: 32px;
+  opacity: 0; animation: rise 0.9s 0.3s forwards;
+}
+.hero-h1 em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.hero-sub {
+  font-size: 18px; line-height: 1.8; color: var(--cream-dim);
+  font-weight: 300; max-width: 580px; margin-bottom: 52px;
+  opacity: 0; animation: rise 0.9s 0.5s forwards;
+}
+.hero-actions {
+  display: flex; align-items: center; gap: 24px;
+  opacity: 0; animation: rise 0.9s 0.7s forwards;
+}
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; background: var(--gold); color: var(--ink);
+  font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em;
+  text-decoration: none; border-radius: 3px; transition: all 0.2s;
+  border: none; cursor: pointer;
+}
+.btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
+.btn-ghost {
+  font-size: 13.5px; color: var(--cream-dim); text-decoration: none;
+  letter-spacing: 0.04em; transition: color 0.2s; display: flex; align-items: center; gap: 6px;
+}
+.btn-ghost span { transition: transform 0.2s; }
+.btn-ghost:hover { color: var(--cream); }
+.btn-ghost:hover span { transform: translateX(4px); }
+
+.hero-scroll-line {
+  position: absolute; bottom: 48px; left: 64px;
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(247,243,236,0.2);
+  opacity: 0; animation: rise 1s 1s forwards;
+}
+.hero-scroll-line::before { content: ''; width: 40px; height: 1px; background: currentColor; }
+
+/* SHARED SECTION */
+section { position: relative; z-index: 1; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+.kicker {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 22px;
+}
+.kicker::before { content: ''; width: 22px; height: 1px; background: var(--gold); }
+
+/* PROBLEM */
+.problem { padding: 100px 0; border-top: 1px solid var(--line); }
+.problem-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.problem-left { }
+.problem-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 3.5vw, 50px); font-weight: 600;
+  line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 24px;
+}
+.problem-title em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.problem-body { font-size: 15.5px; color: var(--cream-dim); line-height: 1.8; font-weight: 300; }
+.problem-right { padding-top: 8px; }
+.prob-item {
+  padding: 28px 0; border-bottom: 1px solid var(--line);
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.prob-item:first-child { border-top: 1px solid var(--line); }
+.prob-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 36px;
+  font-weight: 700; color: rgba(247,243,236,0.08); line-height: 1; flex-shrink: 0;
+  width: 44px;
+}
+.prob-content { }
+.prob-heading { font-size: 15px; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
+.prob-text { font-size: 13.5px; color: var(--cream-dim); line-height: 1.75; font-weight: 300; }
+
+/* WHO IS THIS FOR */
+.for-section { padding: 120px 0; background: var(--ink2); }
+.for-header { margin-bottom: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+.for-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 54px); font-weight: 600;
+  line-height: 1.15; letter-spacing: -0.01em;
+}
+.for-title em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.for-intro { font-size: 15.5px; color: var(--cream-dim); line-height: 1.8; font-weight: 300; }
+.sectors-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.sector-card {
+  background: var(--cream-faint); border: 1px solid var(--line);
+  padding: 36px 30px; transition: all 0.3s; position: relative; overflow: hidden;
+  cursor: default;
+}
+.sector-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0); transition: transform 0.3s;
+  transform-origin: left;
+}
+.sector-card:hover { background: var(--gold-faint); border-color: rgba(232,160,32,0.2); }
+.sector-card:hover::after { transform: scaleX(1); }
+.sector-icon { font-size: 24px; margin-bottom: 16px; }
+.sector-name { font-size: 13.5px; font-weight: 700; color: var(--cream); margin-bottom: 10px; letter-spacing: -0.01em; }
+.sector-pain { font-size: 12.5px; color: var(--cream-dim); line-height: 1.7; font-weight: 300; }
+.sector-tag {
+  display: inline-block; margin-top: 14px;
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); background: var(--gold-dim); padding: 3px 8px; border-radius: 2px;
+}
+
+/* SERVICES */
+.services { padding: 120px 0; }
+.services-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 64px; }
+.services-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 54px); font-weight: 600;
+  line-height: 1.15; letter-spacing: -0.01em;
+}
+.services-title em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.services-intro { font-size: 15.5px; color: var(--cream-dim); line-height: 1.8; font-weight: 300; }
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+.service-card {
+  background: var(--cream-faint); border: 1px solid var(--line);
+  padding: 48px 42px; transition: all 0.3s; position: relative; overflow: hidden;
+}
+.service-card:hover { border-color: rgba(232,160,32,0.22); }
+.s-icon {
+  width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  margin-bottom: 26px; transition: border-color 0.3s;
+}
+.service-card:hover .s-icon { border-color: var(--gold); }
+.s-name { font-size: 17px; font-weight: 600; color: var(--cream); margin-bottom: 14px; letter-spacing: -0.01em; }
+.s-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.8; font-weight: 300; }
+.s-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 22px; font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+  text-decoration: none;
+}
+
+/* PROCESS */
+.process { padding: 120px 0; background: var(--ink2); }
+.process-header { margin-bottom: 70px; }
+.process-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 54px); font-weight: 600;
+  line-height: 1.15; max-width: 520px; margin-bottom: 18px;
+}
+.process-title em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.process-sub { font-size: 15.5px; color: var(--cream-dim); font-weight: 300; max-width: 520px; line-height: 1.75; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.step {
+  padding: 44px 34px; border: 1px solid var(--line);
+  background: var(--ink); position: relative; overflow: hidden;
+}
+.step::before {
+  content: attr(data-n);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 88px; font-weight: 700; color: rgba(247,243,236,0.03);
+  position: absolute; bottom: -16px; right: 10px; line-height: 1; pointer-events: none;
+}
+.step-phase {
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+}
+.step-name { font-size: 16px; font-weight: 600; color: var(--cream); margin-bottom: 12px; }
+.step-desc { font-size: 13.5px; color: var(--cream-dim); line-height: 1.75; font-weight: 300; }
+
+/* PACKAGES */
+.packages { padding: 120px 0; }
+.packages-header { margin-bottom: 60px; }
+.packages-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 54px); font-weight: 600; line-height: 1.15; margin-bottom: 16px;
+}
+.packages-title em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.packages-sub { font-size: 15.5px; color: var(--cream-dim); font-weight: 300; max-width: 560px; line-height: 1.75; }
+.pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.pkg-card {
+  background: var(--cream-faint); border: 1px solid var(--line);
+  padding: 46px 38px; position: relative; transition: all 0.3s;
+}
+.pkg-card.featured { background: var(--gold); border-color: var(--gold); }
+.pkg-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--cream); color: var(--ink); font-family: 'DM Mono', monospace;
+  font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 2px; white-space: nowrap;
+}
+.pkg-tier {
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+}
+.pkg-card.featured .pkg-tier { color: rgba(6,9,26,0.6); }
+.pkg-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 600; color: var(--cream); margin-bottom: 6px;
+}
+.pkg-card.featured .pkg-name { color: var(--ink); }
+.pkg-sub { font-size: 12.5px; color: var(--cream-dim); margin-bottom: 22px; font-weight: 300; }
+.pkg-card.featured .pkg-sub { color: rgba(6,9,26,0.55); }
+.pkg-divider { height: 1px; background: var(--line); margin-bottom: 22px; }
+.pkg-card.featured .pkg-divider { background: rgba(6,9,26,0.12); }
+.pkg-desc { font-size: 13.5px; color: var(--cream-dim); line-height: 1.75; font-weight: 300; margin-bottom: 22px; }
+.pkg-card.featured .pkg-desc { color: rgba(6,9,26,0.65); }
+.pkg-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 32px; }
+.pkg-item { font-size: 13px; color: var(--cream-dim); padding-left: 18px; position: relative; font-weight: 300; }
+.pkg-card.featured .pkg-item { color: rgba(6,9,26,0.65); }
+.pkg-item::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 1px; background: var(--gold); }
+.pkg-card.featured .pkg-item::before { background: rgba(6,9,26,0.3); }
+.pkg-cta {
+  display: block; text-align: center; padding: 13px; border-radius: 3px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none;
+  transition: all 0.2s; border: 1px solid var(--line); color: var(--cream);
+}
+.pkg-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.pkg-card.featured .pkg-cta {
+  background: var(--ink); color: var(--cream); border-color: transparent;
+}
+.pkg-card.featured .pkg-cta:hover { background: rgba(6,9,26,0.85); }
+
+/* CONTACT */
+.contact { padding: 120px 0; background: var(--ink2); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
+.contact-left { }
+.contact-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 3.8vw, 56px); font-weight: 600;
+  line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 22px;
+}
+.contact-title em { font-style: italic; font-weight: 300; color: rgba(247,243,236,0.4); }
+.contact-body { font-size: 15.5px; color: var(--cream-dim); line-height: 1.8; font-weight: 300; margin-bottom: 48px; }
+.trust-list { display: flex; flex-direction: column; gap: 15px; }
+.trust-row { display: flex; align-items: center; gap: 14px; }
+.trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.trust-text { font-size: 13.5px; color: var(--cream-dim); font-weight: 300; }
+.contact-direct { margin-top: 44px; display: flex; flex-direction: column; gap: 12px; }
+.direct-link {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13.5px; color: var(--cream-dim); text-decoration: none;
+  transition: color 0.2s;
+}
+.direct-link:hover { color: var(--gold); }
+.direct-icon {
+  width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 3px;
+  display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+
+/* FORM */
+.form-card {
+  background: var(--ink); border: 1px solid var(--line); padding: 44px 40px;
+}
+.form-card-title { font-size: 16px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+.form-card-sub { font-size: 13.5px; color: var(--cream-dim); margin-bottom: 32px; font-weight: 300; }
+.form-group { margin-bottom: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label {
+  display: block; font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: rgba(247,243,236,0.35); margin-bottom: 7px;
+}
+input, select, textarea {
+  width: 100%; background: var(--ink2); border: 1px solid var(--line);
+  border-radius: 3px; padding: 12px 16px; font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px; color: var(--cream); outline: none;
+  transition: border-color 0.2s, background 0.2s; appearance: none;
+}
+input::placeholder, textarea::placeholder { color: rgba(247,243,236,0.18); }
+input:focus, select:focus, textarea:focus { border-color: var(--gold); background: rgba(232,160,32,0.04); }
+select { cursor: pointer; }
+select option { background: var(--ink3); }
+textarea { resize: vertical; min-height: 100px; }
+.submit-btn {
+  width: 100%; padding: 15px; background: var(--gold); color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
+  letter-spacing: 0.04em; border: none; border-radius: 3px;
+  cursor: pointer; transition: all 0.2s; margin-top: 6px;
+}
+.submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.or-line {
+  display: flex; align-items: center; gap: 14px; margin: 24px 0;
+  font-size: 10.5px; color: rgba(247,243,236,0.2);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.or-line::before, .or-line::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.cal-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px; border: 1px solid var(--line);
+  color: var(--cream-dim); font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px; font-weight: 500; border-radius: 3px;
+  text-decoration: none; transition: all 0.2s; background: transparent;
+}
+.cal-btn:hover { border-color: var(--gold); color: var(--cream); background: rgba(232,160,32,0.05); }
+.form-note {
+  font-size: 11px; color: rgba(247,243,236,0.18); text-align: center;
+  margin-top: 16px; line-height: 1.7;
+}
+.form-success { display: none; text-align: center; padding: 40px 16px; }
+.form-success.visible { display: block; }
+.form-body.hidden { display: none; }
+.success-check { font-size: 38px; margin-bottom: 14px; }
+.success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px; font-weight: 600; color: var(--cream); margin-bottom: 10px;
+}
+.success-body { font-size: 14px; color: var(--cream-dim); line-height: 1.75; }
+
+/* FOOTER */
+footer {
+  padding: 60px 64px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1;
+}
+.footer-left { }
+.footer-name {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.footer-tag { font-size: 12.5px; color: rgba(247,243,236,0.25); font-weight: 300; }
+.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a {
+  font-size: 12.5px; color: var(--cream-dim); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 11px; color: rgba(247,243,236,0.18); }
+
+/* ANIMATIONS */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; }
+.d4 { transition-delay: 0.4s; }
+
+/* MOBILE */
+@media (max-width: 960px) {
+  nav, nav.scrolled { padding: 18px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 110px 24px 80px; }
+  .hero-scroll-line { left: 24px; }
+  .wrap { padding: 0 24px; }
+  .problem-inner, .for-header, .services-header, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .sectors-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps, .pkg-grid, .services-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 28px; padding: 40px 24px; }
+  .footer-right { align-items: flex-start; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logomark"></div>
+    <span class="nav-brand">The Operations Desk</span>
+  </a>
+  <div class="nav-links">
+    <a href="#for-section">Who It's For</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#packages">Packages</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Work With Us</a>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker">Operational Architecture for Founders</div>
+    <h1 class="hero-h1">
+      A great idea deserves<br>
+      <em>a structure worthy of it.</em>
+    </h1>
+    <p class="hero-sub">
+      Most businesses don't collapse because the idea was wrong. They collapse because the foundation beneath the idea was never built properly. We build that foundation.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-gold">Start a Conversation ↗</a>
+      <a href="#for-section" class="btn-ghost">See if this is for you <span>→</span></a>
+    </div>
+  </div>
+  <div class="hero-scroll-line">Scroll to explore</div>
+</section>
+
+<!-- PROBLEM -->
+
+<section class="problem">
+  <div class="wrap">
+    <div class="problem-inner">
+      <div class="problem-left reveal">
+        <div class="kicker">The Reality</div>
+        <h2 class="problem-title">
+          Every founder hits a wall.<br>
+          <em>Most don't know why.</em>
+        </h2>
+        <p class="problem-body">
+          It is almost never about talent, effort, or the quality of the idea. The businesses that stall, burnout their founders, or quietly fall apart all share one thing in common. Somewhere along the way, the growth outpaced the structure holding it together. And nobody stopped to fix the structure.
+        </p>
+      </div>
+      <div class="problem-right">
+        <div class="prob-item reveal d1">
+          <div class="prob-num">01</div>
+          <div class="prob-content">
+            <div class="prob-heading">You're just getting started</div>
+            <div class="prob-text">The energy is real and the vision is clear, but without the right framework underneath it, what feels like momentum now will feel like chaos in six months. The time to build the foundation is before you need it.</div>
+          </div>
+        </div>
+        <div class="prob-item reveal d2">
+          <div class="prob-num">02</div>
+          <div class="prob-content">
+            <div class="prob-heading">You have a team, but it still feels like it's all on you</div>
+            <div class="prob-text">People are showing up, things are moving, but somehow every important question circles back to you. The team exists. The structure does not. And you are the only one filling that gap.</div>
+          </div>
+        </div>
+        <div class="prob-item reveal d3">
+          <div class="prob-num">03</div>
+          <div class="prob-content">
+            <div class="prob-heading">You're scaling and it's getting heavier, not lighter</div>
+            <div class="prob-text">Growth was supposed to feel like freedom. Instead it feels like you've taken on five more jobs. The bigger the business gets, the more it depends on you personally to hold it together. That was never the plan.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS THIS FOR -->
+
+<section class="for-section" id="for-section">
+  <div class="wrap">
+    <div class="for-header">
+      <div class="reveal">
+        <div class="kicker">Who This Is For</div>
+        <h2 class="for-title">
+          Built for founders across<br>
+          <em>every industry that moves fast.</em>
+        </h2>
+      </div>
+      <p class="for-intro reveal d2">
+        Operational chaos does not discriminate by sector. Whether you are building a tech platform, running a creative agency, or scaling a service-based business, the moment your ambition outpaces your systems is the moment you need us. These are the industries where we have seen that gap most clearly.
+      </p>
+    </div>
+    <div class="sectors-grid">
+      <div class="sector-card reveal">
+        <div class="sector-icon">🎬</div>
+        <div class="sector-name">Creator Agencies and Media Companies</div>
+        <div class="sector-pain">Fast-growing agencies managing talent, content, and clients all at once rarely have the internal architecture to handle that load gracefully. Deliverables slip, communication breaks down, and the founder ends up managing everything personally.</div>
+        <div class="sector-tag">High Demand</div>
+      </div>
+      <div class="sector-card reveal d1">
+        <div class="sector-icon">🛍️</div>
+        <div class="sector-name">E-commerce and Product Brands</div>
+        <div class="sector-pain">From inventory to fulfilment to customer experience, product businesses carry a complex operational chain. When that chain is managed through WhatsApp messages and intuition, scaling becomes genuinely dangerous.</div>
+        <div class="sector-tag">High Demand</div>
+      </div>
+      <div class="sector-card reveal d2">
+        <div class="sector-icon">⚖️</div>
+        <div class="sector-name">Professional Services</div>
+        <div class="sector-pain">Law firms, financial advisories, consulting practices, and HR firms often deliver exceptional client work while their own internal operations remain completely unstructured. The cobbler's children have no shoes, as they say.</div>
+        <div class="sector-tag">Critical Need</div>
+      </div>
+      <div class="sector-card reveal d3">
+        <div class="sector-icon">💻</div>
+        <div class="sector-name">Tech Startups and SaaS Businesses</div>
+        <div class="sector-pain">The product gets all the attention. The internal operations, team structure, and documentation rarely do. Many tech companies have sophisticated products held together by informal systems that collapse the moment growth accelerates.</div>
+        <div class="sector-tag">Critical Need</div>
+      </div>
+      <div class="sector-card reveal">
+        <div class="sector-icon">🏥</div>
+        <div class="sector-name">Health, Wellness, and Beauty</div>
+        <div class="sector-pain">Clinics, wellness brands, and beauty businesses operate with multiple moving parts, high client volumes, and service standards that cannot slip. Without proper SOPs and team structure, quality becomes impossible to maintain at scale.</div>
+        <div class="sector-tag">Growing Sector</div>
+      </div>
+      <div class="sector-card reveal d1">
+        <div class="sector-icon">🏗️</div>
+        <div class="sector-name">Real Estate and Property Development</div>
+        <div class="sector-pain">Real estate businesses manage vendors, clients, agents, timelines, and compliance simultaneously. The operational complexity is enormous, and most businesses in this space run on individual knowledge rather than documented systems.</div>
+        <div class="sector-tag">High Demand</div>
+      </div>
+      <div class="sector-card reveal d2">
+        <div class="sector-icon">🎤</div>
+        <div class="sector-name">Events, Entertainment, and Hospitality</div>
+        <div class="sector-pain">An events business is essentially one long operational test. Every booking, every vendor, every crew member, every client expectation has to be coordinated precisely. One missed system is one missed event.</div>
+        <div class="sector-tag">Growing Sector</div>
+      </div>
+      <div class="sector-card reveal d3">
+        <div class="sector-icon">🎓</div>
+        <div class="sector-name">Education, Coaching, and Training Businesses</div>
+        <div class="sector-pain">Coaches and educators build powerful programs then spend most of their time buried in admin, enrolment, and client management rather than doing the work they are actually great at. Operations can change that completely.</div>
+        <div class="sector-tag">Growing Sector</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="services-header">
+      <div>
+        <div class="kicker reveal">What We Build</div>
+        <h2 class="services-title reveal d1">
+          We don't organise your business.<br>
+          <em>We re-engineer it.</em>
+        </h2>
+      </div>
+      <p class="services-intro reveal d2">
+        Think of us less like a consultant you bring in to give recommendations, and more like an architect you bring in to draw the blueprint and oversee the build. We leave with something real. Something that runs.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="s-icon">🏗️</div>
+        <div class="s-name">Business Operating System</div>
+        <div class="s-desc">Your company, mapped and organised into one complete digital headquarters. Eight functional zones covering every part of how your business runs, built in Notion, custom to your team and your workflow. The kind of thing that makes a new hire productive within days, not months.</div>
+        <a href="#contact" class="s-link">Enquire →</a>
+      </div>
+      <div class="service-card reveal d1">
+        <div class="s-icon">📋</div>
+        <div class="s-name">Standard Operating Procedures</div>
+        <div class="s-desc">Every critical function your business performs, written down with precision and clarity. Not templates pulled from the internet. Custom documents built around how your team actually works. When the person who knows everything leaves, the knowledge stays.</div>
+        <a href="#contact" class="s-link">Enquire →</a>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="s-icon">👥</div>
+        <div class="s-name">Team Structure and Workflow Design</div>
+        <div class="s-desc">We look at your team, find where accountability is blurry and where communication is breaking down, then design a structure that lets people know exactly what they own and how it connects to what everyone else is doing. Execution stops requiring your intervention.</div>
+        <a href="#contact" class="s-link">Enquire →</a>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="s-icon">🎯</div>
+        <div class="s-name">Operational Strategy</div>
+        <div class="s-desc">For founders who need a thinking partner on the larger operational picture. Not just what is broken today, but how the whole structure needs to evolve to hold the business you are building toward. Strategic, clear, and grounded in how your company actually works.</div>
+        <a href="#contact" class="s-link">Enquire →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process-header">
+      <div class="kicker reveal">How We Work</div>
+      <h2 class="process-title reveal d1">
+        Four phases.<br><em>One outcome.</em>
+      </h2>
+      <p class="process-sub reveal d2">No guessing. No borrowed templates. A clean process that respects your business and gets results that hold.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal" data-n="I">
+        <div class="step-phase">Phase 01</div>
+        <div class="step-name">We Listen Before We Touch Anything</div>
+        <div class="step-desc">We come in, ask the uncomfortable questions, observe how things actually run rather than how you think they run, and map out where the real friction is hiding. This phase alone changes how most founders see their own businesses.</div>
+      </div>
+      <div class="step reveal d1" data-n="II">
+        <div class="step-phase">Phase 02</div>
+        <div class="step-name">We Design Something That Actually Fits</div>
+        <div class="step-desc">Everything we design is built around your business specifically. Your team size, your industry, your way of communicating, your growth stage. Nothing is pulled from a playbook. Everything is made for you.</div>
+      </div>
+      <div class="step reveal d2" data-n="III">
+        <div class="step-phase">Phase 03</div>
+        <div class="step-name">We Build It Until It's Ready</div>
+        <div class="step-desc">The SOPs, the operating system, the trackers, the team documentation. We build it all out and test it against reality before we hand it over. You receive something functional, not something theoretical.</div>
+      </div>
+      <div class="step reveal d3" data-n="IV">
+        <div class="step-phase">Phase 04</div>
+        <div class="step-name">We Make Sure Your Team Can Drive It</div>
+        <div class="step-desc">A system your team cannot use is just a document nobody reads. We walk every relevant person through what has been built, answer every question, and make sure the handover actually lands before we step back.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+
+<section class="packages" id="packages">
+  <div class="wrap">
+    <div class="packages-header">
+      <div class="kicker reveal">Engagement Options</div>
+      <h2 class="packages-title reveal d1">
+        Three ways in.<br><em>One destination.</em>
+      </h2>
+      <p class="packages-sub reveal d2">Choose the engagement that fits where your business is right now. Every path leads to the same place: a business that runs without you running every part of it.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card reveal">
+        <div class="pkg-tier">Engagement 01</div>
+        <div class="pkg-name">The Diagnostic</div>
+        <div class="pkg-sub">Clarity before commitment</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-desc">We come in, look at everything honestly, and give you a precise picture of what is working, what is not, and what needs to change. You leave with a clear action plan and the knowledge to act on it.</div>
+        <ul class="pkg-list">
+          <li class="pkg-item">Full operational audit</li>
+          <li class="pkg-item">Friction and gap analysis</li>
+          <li class="pkg-item">Written recommendations report</li>
+          <li class="pkg-item">Priority action roadmap</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Get Started</a>
+      </div>
+      <div class="pkg-card featured reveal d1">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-tier">Engagement 02</div>
+        <div class="pkg-name">The Full Build</div>
+        <div class="pkg-sub">The complete operational transformation</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-desc">The full engagement from diagnosis to handover. We design, build, and embed a complete operational system tailored to your business and your team.</div>
+        <ul class="pkg-list">
+          <li class="pkg-item">Everything in the Diagnostic</li>
+          <li class="pkg-item">Custom Business OS in Notion</li>
+          <li class="pkg-item">SOPs for all critical workflows</li>
+          <li class="pkg-item">Team structure and role design</li>
+          <li class="pkg-item">Full team walkthrough and handover</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Get Started</a>
+      </div>
+      <div class="pkg-card reveal d2">
+        <div class="pkg-tier">Engagement 03</div>
+        <div class="pkg-name">The Retainer</div>
+        <div class="pkg-sub">Your permanent operations partner</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-desc">We stay embedded as your operations partner. We monitor, refine, and manage the operational decisions so you can direct your energy toward leading and building.</div>
+        <ul class="pkg-list">
+          <li class="pkg-item">Ongoing system management and refinement</li>
+          <li class="pkg-item">Monthly operational reviews</li>
+          <li class="pkg-item">New SOPs built as your business evolves</li>
+          <li class="pkg-item">Dedicated operational support</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="kicker reveal">Let's Talk</div>
+        <h2 class="contact-title reveal d1">
+          You don't have to figure out<br>
+          <em>what's broken before you reach out.</em>
+        </h2>
+        <p class="contact-body reveal d2">
+          That is literally what the first conversation is for. If something about what you have read here felt familiar, that recognition is enough. Tell us where you are, and we will take it from there.
+        </p>
+        <div class="trust-list reveal d3">
+          <div class="trust-row"><div class="trust-dot"></div><span class="trust-text">Every enquiry receives a personal response within 24 hours</span></div>
+          <div class="trust-row"><div class="trust-dot"></div><span class="trust-text">No pushy sales process. Just an honest conversation.</span></div>
+          <div class="trust-row"><div class="trust-dot"></div><span class="trust-text">We work with founders in Nigeria and internationally</span></div>
+          <div class="trust-row"><div class="trust-dot"></div><span class="trust-text">All engagements begin with a clarity call at no cost</span></div>
+        </div>
+        <div class="contact-direct reveal d4">
+          <a href="mailto:giftieobeten@gmail.com" class="direct-link">
+            <div class="direct-icon">✉️</div>
+            giftieobeten@gmail.com
+          </a>
+          <a href="https://www.instagram.com/theoperationsdesk?igsh=ajJmODVhZDh2eHlr" target="_blank" class="direct-link">
+            <div class="direct-icon">📷</div>
+            @theoperationsdesk on Instagram
+          </a>
+        </div>
+      </div>
+
+```
+  <div class="form-right reveal d2">
+    <div class="form-card">
+      <div class="form-card-title">Send Us a Message</div>
+      <div class="form-card-sub">Tell us about your business and what you need. We will get back to you within 24 hours.</div>
+      <div class="form-body" id="formBody">
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="First and last name" required>
+            </div>
+            <div class="form-group">
+              <label>Business Name</label>
+              <input type="text" placeholder="Your company" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@yourbusiness.com" required>
+          </div>
+          <div class="form-group">
+            <label>Business Stage</label>
+            <select required>
+              <option value="" disabled selected>Where are you right now?</option>
+              <option>Just starting out (under 1 year)</option>
+              <option>Building and growing (1 to 3 years)</option>
+              <option>Established and scaling (3 years and above)</option>
+              <option>Not sure, just exploring</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Service Interest</label>
+            <select required>
+              <option value="" disabled selected>What interests you?</option>
+              <option>The Diagnostic</option>
+              <option>The Full Build</option>
+              <option>The Retainer</option>
+              <option>Not sure yet, just want to talk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell Us About Your Situation</label>
+            <textarea placeholder="What is going on in your business right now? What feels broken, missing, or overwhelming? The more context you give us, the better." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message ↗</button>
+        </form>
+        <div class="or-line">or</div>
+        <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn">
+          📅 &nbsp; Book a 30-minute Discovery Call directly
+        </a>
+        <p class="form-note">Not ready for a call? The form is a great first step.<br>We will follow up personally within 24 hours.</p>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="success-check">✓</div>
+        <div class="success-title">Message received.</div>
+        <div class="success-body">Thank you for reaching out. We will review your enquiry and get back to you personally within 24 hours.<br><br>If you would rather speak sooner, book a discovery call below.</div>
+        <br>
+        <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn" style="margin-top:8px;">
+          📅 &nbsp; Book a Discovery Call
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-name">
+      <div class="nav-logomark"></div>
+      The Operations Desk
+    </div>
+    <div class="footer-tag">Operational architecture for founders who are ready to build properly.</div>
+  </div>
+  <div class="footer-right">
+    <div class="footer-links">
+      <a href="#for-section">Who It's For</a>
+      <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
+      <a href="https://www.instagram.com/theoperationsdesk?igsh=ajJmODVhZDh2eHlr" target="_blank">Instagram</a>
+      <a href="mailto:giftieobeten@gmail.com">Email</a>
+    </div>
+    <div class="footer-copy">© 2025 The Operations Desk. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Form
+  function submitForm(e) {
+    e.preventDefault();
+    document.getElementById('formBody').classList.add('hidden');
+    document.getElementById('formSuccess').classList.add('visible');
+  }
+</script>
+
+</body>
+</html>
