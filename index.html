@@ -4,518 +4,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Operations Desk — Operational Architecture for Founders</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-<style>
-:root {
-  --navy:   #080f2a;
-  --navy2:  #0d1535;
-  --blue:   #2563ff;
-  --blue2:  rgba(37,99,255,0.12);
-  --white:  #ffffff;
-  --dim:    rgba(255,255,255,0.55);
-  --faint:  rgba(255,255,255,0.06);
-  --line:   rgba(255,255,255,0.08);
-}
-
-/* FORCE ALL TEXT WHITE - prevent browser dark mode interference */
-*, *::before, *::after {
-color: inherit;
--webkit-text-fill-color: inherit;
-}
-html {
-color-scheme: dark;
-background-color: #080f2a;
-color: #ffffff;
-}
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-font-family: ‘Nunito’, sans-serif;
-background: #080f2a !important;
-color: #ffffff !important;
-overflow-x: hidden;
-}
-
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(–navy); }
-::-webkit-scrollbar-thumb { background: var(–blue); border-radius: 2px; }
-
-/* ============ NAV ============ */
-nav {
-position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-padding: 24px 52px;
-display: flex; align-items: center; justify-content: space-between;
-transition: all 0.3s;
-}
-nav.scrolled {
-background: rgba(8,15,42,0.97);
-backdrop-filter: blur(20px);
-padding: 16px 52px;
-border-bottom: 1px solid var(–line);
-}
-.logo {
-display: flex; align-items: center; gap: 10px;
-text-decoration: none;
-}
-.logo-mark {
-width: 28px; height: 28px;
-border: 1.5px solid var(–blue);
-border-radius: 3px;
-display: flex; align-items: center; justify-content: center;
-position: relative;
-}
-.logo-mark::after {
-content: ‘’;
-width: 9px; height: 9px;
-background: var(–blue);
-border-radius: 1px;
-}
-.logo-text {
-font-family: ‘Nunito’, sans-serif;
-font-size: 11px; font-weight: 700;
-letter-spacing: 0.16em; text-transform: uppercase;
-color: var(–white);
-}
-.nav-cta {
-padding: 10px 24px;
-background: var(–blue); color: #fff;
-font-size: 12px; font-weight: 700;
-letter-spacing: 0.05em;
-border-radius: 3px; text-decoration: none;
-transition: opacity 0.2s;
-}
-.nav-cta:hover { opacity: 0.85; }
-
-/* ============ HERO ============ */
-.hero {
-min-height: 100vh;
-display: flex; flex-direction: column;
-justify-content: center; align-items: flex-start;
-padding: 120px 52px 80px;
-position: relative; overflow: hidden;
-}
-.hero-glow {
-position: absolute; pointer-events: none;
-width: 600px; height: 600px; border-radius: 50%;
-background: radial-gradient(circle, rgba(37,99,255,0.1) 0%, transparent 65%);
-top: -100px; right: -100px;
-}
-.hero-glow2 {
-position: absolute; pointer-events: none;
-width: 400px; height: 400px; border-radius: 50%;
-background: radial-gradient(circle, rgba(37,99,255,0.06) 0%, transparent 65%);
-bottom: -80px; left: -80px;
-}
-.hero-tag {
-font-size: 10px; font-weight: 700;
-letter-spacing: 0.2em; text-transform: uppercase;
-color: var(–blue);
-display: flex; align-items: center; gap: 10px;
-margin-bottom: 32px;
-opacity: 0; animation: up 0.8s 0.1s forwards;
-}
-.hero-tag::before { content:’’; width:24px; height:1px; background:var(–blue); }
-.hero-h1 {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(48px, 7vw, 90px);
-font-weight: 700; line-height: 1.05;
-letter-spacing: -0.02em;
-max-width: 800px;
-margin-bottom: 28px;
-opacity: 0; animation: up 0.8s 0.25s forwards;
-}
-.hero-h1 em {
-font-style: italic; font-weight: 300;
-color: rgba(255,255,255,0.35);
-}
-.hero-sub {
-font-size: 17px; font-weight: 300;
-color: var(–dim); line-height: 1.8;
-max-width: 520px; margin-bottom: 48px;
-opacity: 0; animation: up 0.8s 0.4s forwards;
-}
-.hero-actions {
-display: flex; align-items: center; gap: 20px;
-opacity: 0; animation: up 0.8s 0.55s forwards;
-}
-.btn-primary {
-padding: 15px 32px;
-background: var(–blue); color: #fff;
-font-size: 13px; font-weight: 700;
-letter-spacing: 0.04em;
-border-radius: 3px; text-decoration: none;
-transition: all 0.2s; border: none; cursor: pointer;
-display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
-.btn-ghost {
-font-size: 13px; color: var(–dim);
-text-decoration: none; transition: color 0.2s;
-display: flex; align-items: center; gap: 6px;
-}
-.btn-ghost span { transition: transform 0.2s; }
-.btn-ghost:hover { color: var(–white); }
-.btn-ghost:hover span { transform: translateX(4px); }
-
-/* ============ DIVIDER ============ */
-.divider {
-height: 1px; background: var(–line);
-margin: 0 52px;
-}
-
-/* ============ WHAT WE DO ============ */
-.services {
-padding: 100px 52px;
-}
-.sec-tag {
-font-size: 10px; font-weight: 700;
-letter-spacing: 0.2em; text-transform: uppercase;
-color: var(–blue);
-display: flex; align-items: center; gap: 10px;
-margin-bottom: 20px;
-}
-.sec-tag::before { content:’’; width:20px; height:1px; background:var(–blue); }
-.sec-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(32px, 4vw, 52px);
-font-weight: 600; line-height: 1.15;
-letter-spacing: -0.01em;
-margin-bottom: 60px;
-}
-.sec-title em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.35); }
-
-.services-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 2px;
-}
-.svc {
-padding: 44px 40px;
-background: var(–faint);
-border: 1px solid var(–line);
-transition: all 0.3s;
-position: relative; overflow: hidden;
-}
-.svc::after {
-content: ‘’;
-position: absolute; bottom: 0; left: 0; right: 0;
-height: 2px; background: var(–blue);
-transform: scaleX(0); transition: transform 0.3s;
-transform-origin: left;
-}
-.svc:hover { background: rgba(37,99,255,0.07); border-color: rgba(37,99,255,0.2); }
-.svc:hover::after { transform: scaleX(1); }
-.svc-num {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 48px; font-weight: 700;
-color: rgba(255,255,255,0.04);
-position: absolute; top: 16px; right: 20px;
-line-height: 1;
-}
-.svc-name {
-font-size: 16px; font-weight: 700;
-color: var(–white); margin-bottom: 12px;
-letter-spacing: -0.01em;
-}
-.svc-desc {
-font-size: 13.5px; color: var(–dim);
-line-height: 1.8; font-weight: 300;
-}
-
-/* ============ PACKAGES ============ */
-.packages {
-padding: 100px 52px;
-background: var(–navy2);
-}
-.pkg-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 2px;
-margin-top: 60px;
-}
-.pkg {
-padding: 44px 36px;
-background: var(–faint);
-border: 1px solid var(–line);
-transition: all 0.3s;
-position: relative;
-}
-.pkg.featured {
-background: var(–blue);
-border-color: var(–blue);
-box-shadow: 0 8px 40px rgba(37,99,255,0.35);
-}
-.pkg-badge {
-position: absolute; top: -12px; left: 50%;
-transform: translateX(-50%);
-background: #fff; color: var(–navy);
-font-size: 9px; font-weight: 700;
-letter-spacing: 0.12em; text-transform: uppercase;
-padding: 3px 12px; border-radius: 2px;
-white-space: nowrap;
-}
-.pkg-num {
-font-size: 9.5px; font-weight: 700;
-letter-spacing: 0.16em; text-transform: uppercase;
-color: var(–blue); margin-bottom: 12px;
-}
-.pkg.featured .pkg-num { color: rgba(255,255,255,0.6); }
-.pkg-name {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 26px; font-weight: 600;
-color: var(–white); margin-bottom: 6px;
-}
-.pkg-sub {
-font-size: 12px; color: var(–dim);
-margin-bottom: 20px; font-weight: 300;
-}
-.pkg.featured .pkg-sub { color: rgba(255,255,255,0.65); }
-.pkg-line {
-height: 1px; background: var(–line);
-margin-bottom: 20px;
-}
-.pkg.featured .pkg-line { background: rgba(255,255,255,0.15); }
-.pkg-list {
-list-style: none;
-display: flex; flex-direction: column; gap: 9px;
-margin-bottom: 32px;
-}
-.pkg-item {
-font-size: 12.5px; color: var(–dim);
-padding-left: 16px; position: relative;
-font-weight: 300; line-height: 1.5;
-}
-.pkg-item::before {
-content: ‘’;
-position: absolute; left: 0; top: 8px;
-width: 6px; height: 1px; background: var(–blue);
-}
-.pkg.featured .pkg-item { color: rgba(255,255,255,0.8); }
-.pkg.featured .pkg-item::before { background: rgba(255,255,255,0.4); }
-.pkg-cta {
-display: block; text-align: center;
-padding: 13px; border-radius: 3px;
-font-size: 12.5px; font-weight: 700;
-letter-spacing: 0.04em; text-decoration: none;
-transition: all 0.2s;
-border: 1px solid var(–line); color: var(–white);
-}
-.pkg-cta:hover { background: var(–blue); border-color: var(–blue); }
-.pkg.featured .pkg-cta {
-background: rgba(255,255,255,0.15);
-border-color: rgba(255,255,255,0.3);
-color: #fff;
-}
-.pkg.featured .pkg-cta:hover { background: rgba(255,255,255,0.25); }
-
-/* ============ CONTACT ============ */
-.contact {
-padding: 100px 52px;
-}
-.contact-inner {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 80px; align-items: start;
-}
-.contact-left { }
-.contact-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(32px, 3.5vw, 50px);
-font-weight: 600; line-height: 1.2;
-margin-bottom: 20px;
-}
-.contact-title em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.35); }
-.contact-body {
-font-size: 15px; color: var(–dim);
-line-height: 1.85; font-weight: 300;
-margin-bottom: 40px;
-}
-.contact-links { display: flex; flex-direction: column; gap: 12px; }
-.contact-link {
-display: flex; align-items: center; gap: 12px;
-text-decoration: none; color: var(–dim);
-font-size: 13.5px; transition: color 0.2s;
-}
-.contact-link:hover { color: var(–blue); }
-.cl-icon {
-width: 38px; height: 38px;
-border: 1px solid var(–line); border-radius: 3px;
-display: flex; align-items: center; justify-content: center;
-transition: border-color 0.2s; flex-shrink: 0;
-}
-.contact-link:hover .cl-icon { border-color: var(–blue); }
-
-/* FORM */
-.form-wrap {
-background: var(–navy2);
-border: 1px solid var(–line);
-padding: 40px;
-}
-.form-title { font-size: 15px; font-weight: 700; color: var(–white); margin-bottom: 4px; }
-.form-sub { font-size: 12.5px; color: var(–dim); margin-bottom: 28px; font-weight: 300; }
-.fg { margin-bottom: 14px; }
-label {
-display: block; font-size: 10px; font-weight: 700;
-letter-spacing: 0.1em; text-transform: uppercase;
-color: rgba(255,255,255,0.3); margin-bottom: 6px;
-}
-input, select, textarea {
-width: 100%; background: rgba(255,255,255,0.04);
-border: 1px solid var(–line); border-radius: 3px;
-padding: 11px 14px; font-family: ‘Nunito’, sans-serif;
-font-size: 13px; color: var(–white); outline: none;
-transition: border-color 0.2s; appearance: none;
-}
-input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.18); }
-input:focus, select:focus, textarea:focus { border-color: var(–blue); }
-select { cursor: pointer; }
-select option { background: var(–navy2); }
-textarea { resize: vertical; min-height: 90px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.submit {
-width: 100%; padding: 14px;
-background: var(–blue); color: #fff;
-font-family: ‘Nunito’, sans-serif;
-font-size: 13px; font-weight: 700;
-letter-spacing: 0.04em; border: none;
-border-radius: 3px; cursor: pointer;
-transition: all 0.2s; margin-top: 4px;
-}
-.submit:hover { opacity: 0.85; transform: translateY(-1px); }
-.or-row {
-display: flex; align-items: center; gap: 12px;
-margin: 20px 0; font-size: 10.5px;
-color: rgba(255,255,255,0.2);
-text-transform: uppercase; letter-spacing: 0.1em;
-}
-.or-row::before, .or-row::after { content:’’; flex:1; height:1px; background:var(–line); }
-.cal-btn {
-display: flex; align-items: center; justify-content: center; gap: 8px;
-width: 100%; padding: 13px;
-border: 1px solid var(–line); color: var(–dim);
-font-family: ‘Nunito’, sans-serif;
-font-size: 13px; font-weight: 500;
-border-radius: 3px; text-decoration: none;
-transition: all 0.2s;
-}
-.cal-btn:hover { border-color: var(–blue); color: var(–white); }
-.form-note {
-font-size: 10.5px; color: rgba(255,255,255,0.18);
-text-align: center; margin-top: 14px; line-height: 1.6;
-}
-.form-success { display: none; text-align: center; padding: 32px 0; }
-.form-success.show { display: block; }
-.form-body.hide { display: none; }
-.fs-icon { font-size: 32px; margin-bottom: 12px; }
-.fs-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 26px; font-weight: 600;
-color: var(–white); margin-bottom: 8px;
-}
-.fs-body { font-size: 13px; color: var(–dim); line-height: 1.7; }
-
-/* ============ FOOTER ============ */
-footer {
-padding: 40px 52px;
-border-top: 1px solid var(–line);
-background: var(–navy2);
-display: flex; align-items: center;
-justify-content: space-between;
-}
-.footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.footer-right { display: flex; gap: 24px; }
-.footer-right a {
-font-size: 12px; color: var(–dim);
-text-decoration: none; transition: color 0.2s;
-}
-.footer-right a:hover { color: var(–white); }
-.footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
-
-/* ============ ANIMATIONS ============ */
-@keyframes up {
-from { opacity:0; transform: translateY(20px); }
-to { opacity:1; transform: translateY(0); }
-}
-.reveal {
-opacity: 0; transform: translateY(24px);
-transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.in { opacity:1; transform: translateY(0); }
-.d1 { transition-delay: 0.1s; }
-.d2 { transition-delay: 0.2s; }
-.d3 { transition-delay: 0.3s; }
-
-/* ============ MOBILE ============ */
-@media (max-width: 860px) {
-nav, nav.scrolled { padding: 18px 24px; }
-.hero { padding: 110px 24px 80px; }
-.divider { margin: 0 24px; }
-.services, .packages, .contact { padding: 80px 24px; }
-.services-grid, .pkg-grid { grid-template-columns: 1fr; }
-.contact-inner { grid-template-columns: 1fr; gap: 48px; }
-.form-row { grid-template-columns: 1fr; }
-footer { flex-direction: column; gap: 20px; padding: 32px 24px; text-align: center; }
-.footer-right { flex-wrap: wrap; justify-content: center; }
-}
-
-/* HARDCODED COLORS - cannot be overridden */
-body, body * { color: #ffffff; }
-.hero-tag { color: #2563ff !important; }
-.hero-h1 { color: #ffffff !important; }
-.hero-h1 em { color: rgba(255,255,255,0.35) !important; }
-.hero-sub { color: rgba(255,255,255,0.55) !important; }
-.sec-tag { color: #2563ff !important; }
-.sec-title { color: #ffffff !important; }
-.sec-title em { color: rgba(255,255,255,0.35) !important; }
-.svc-name { color: #ffffff !important; }
-.svc-desc { color: rgba(255,255,255,0.55) !important; }
-.svc-num { color: rgba(255,255,255,0.04) !important; }
-.pkg-num { color: #2563ff !important; }
-.pkg-name { color: #ffffff !important; }
-.pkg-sub { color: rgba(255,255,255,0.55) !important; }
-.pkg-item { color: rgba(255,255,255,0.7) !important; }
-.pkg.featured .pkg-num { color: rgba(255,255,255,0.6) !important; }
-.pkg.featured .pkg-name { color: #ffffff !important; }
-.pkg.featured .pkg-sub { color: rgba(255,255,255,0.65) !important; }
-.pkg.featured .pkg-item { color: rgba(255,255,255,0.85) !important; }
-.contact-title { color: #ffffff !important; }
-.contact-title em { color: rgba(255,255,255,0.35) !important; }
-.contact-body { color: rgba(255,255,255,0.55) !important; }
-.contact-link { color: rgba(255,255,255,0.55) !important; }
-.contact-link:hover { color: #2563ff !important; }
-.form-title { color: #ffffff !important; }
-.form-sub { color: rgba(255,255,255,0.55) !important; }
-label { color: rgba(255,255,255,0.35) !important; }
-input, select, textarea { color: #ffffff !important; background: rgba(255,255,255,0.04) !important; }
-input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !important; -webkit-text-fill-color: rgba(255,255,255,0.2) !important; }
-.or-row { color: rgba(255,255,255,0.2) !important; }
-.cal-btn { color: rgba(255,255,255,0.55) !important; }
-.form-note { color: rgba(255,255,255,0.2) !important; }
-.logo-text { color: #ffffff !important; }
-.nav-cta { color: #ffffff !important; }
-.btn-primary { color: #ffffff !important; }
-.btn-ghost { color: rgba(255,255,255,0.55) !important; }
-.footer-right a { color: rgba(255,255,255,0.55) !important; }
-.footer-copy { color: rgba(255,255,255,0.2) !important; }
-.fs-title { color: #ffffff !important; }
-.fs-body { color: rgba(255,255,255,0.55) !important; }
-.pkg-cta { color: #ffffff !important; }
-.pkg.featured .pkg-cta { color: #ffffff !important; }
-
-</style>
-<meta name="netlify-no-email-obfuscation" content="true">
+<title>The Operations Desk</title>
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#080f2a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+html { color-scheme: dark; background: #080f2a; color: #fff; scroll-behavior: smooth; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Nunito',sans-serif; background:#080f2a; color:#fff; overflow-x:hidden; }
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:#080f2a}
+::-webkit-scrollbar-thumb{background:#2563ff;border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
+nav.scrolled{background:rgba(8,15,42,.97);backdrop-filter:blur(20px);padding:16px 52px;border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:28px;height:28px;border:1.5px solid #2563ff;border-radius:3px;display:flex;align-items:center;justify-content:center;position:relative}
+.logo-mark::after{content:'';width:9px;height:9px;background:#2563ff;border-radius:1px}
+.logo-text{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+.nav-cta{padding:10px 24px;background:#2563ff;color:#fff;font-size:12px;font-weight:700;letter-spacing:.05em;border-radius:3px;text-decoration:none;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 52px 80px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;pointer-events:none;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,255,.1) 0%,transparent 65%);top:-100px;right:-100px}
+.hero-glow2{position:absolute;pointer-events:none;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,255,.06) 0%,transparent 65%);bottom:-80px;left:-80px}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2563ff;display:flex;align-items:center;gap:10px;margin-bottom:32px}
+.hero-tag::before{content:'';width:24px;height:1px;background:#2563ff}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,90px);font-weight:700;line-height:1.05;letter-spacing:-.02em;max-width:800px;margin-bottom:28px;color:#fff}
+.hero-h1 em{font-style:italic;font-weight:300;color:rgba(255,255,255,.5)}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.8;max-width:520px;margin-bottom:48px}
+.hero-actions{display:flex;align-items:center;gap:20px}
+.btn-primary{padding:15px 32px;background:#2563ff;color:#fff;font-size:13px;font-weight:700;letter-spacing:.04em;border-radius:3px;text-decoration:none;transition:all .2s;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{opacity:.85;transform:translateY(-2px)}
+.btn-ghost{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:6px}
+.btn-ghost span{transition:transform .2s}
+.btn-ghost:hover{color:#fff}
+.btn-ghost:hover span{transform:translateX(4px)}
+.divider{height:1px;background:rgba(255,255,255,.08);margin:0 52px}
+.services{padding:100px 52px}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2563ff;display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-tag::before{content:'';width:20px;height:1px;background:#2563ff}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.15;letter-spacing:-.01em;margin-bottom:60px;color:#fff}
+.sec-title em{font-style:italic;font-weight:300;color:rgba(255,255,255,.5)}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.svc{padding:44px 40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);transition:all .3s;position:relative;overflow:hidden}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#2563ff;transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.svc:hover{background:rgba(37,99,255,.07);border-color:rgba(37,99,255,.2)}
+.svc:hover::after{transform:scaleX(1)}
+.svc-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:rgba(255,255,255,.04);position:absolute;top:16px;right:20px;line-height:1}
+.svc-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:-.01em}
+.svc-desc{font-size:13.5px;color:rgba(255,255,255,.55);line-height:1.8;font-weight:300}
+.packages{padding:100px 52px;background:#0d1535}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.pkg{padding:44px 36px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);transition:all .3s;position:relative}
+.pkg.featured{background:#2563ff;border-color:#2563ff;box-shadow:0 8px 40px rgba(37,99,255,.35)}
+.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fff;color:#080f2a;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 12px;border-radius:2px;white-space:nowrap}
+.pkg-num{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#2563ff;margin-bottom:12px}
+.pkg.featured .pkg-num{color:rgba(255,255,255,.6)}
+.pkg-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:6px}
+.pkg-sub{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:20px;font-weight:300}
+.pkg.featured .pkg-sub{color:rgba(255,255,255,.75)}
+.pkg-line{height:1px;background:rgba(255,255,255,.08);margin-bottom:20px}
+.pkg.featured .pkg-line{background:rgba(255,255,255,.2)}
+.pkg-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.pkg-item{font-size:12.5px;color:rgba(255,255,255,.65);padding-left:16px;position:relative;font-weight:300;line-height:1.5}
+.pkg-item::before{content:'';position:absolute;left:0;top:8px;width:6px;height:1px;background:#2563ff}
+.pkg.featured .pkg-item{color:rgba(255,255,255,.9)}
+.pkg.featured .pkg-item::before{background:rgba(255,255,255,.5)}
+.pkg-cta{display:block;text-align:center;padding:13px;border-radius:3px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.08);color:#fff}
+.pkg-cta:hover{background:#2563ff;border-color:#2563ff}
+.pkg.featured .pkg-cta{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff}
+.pkg.featured .pkg-cta:hover{background:rgba(255,255,255,.25)}
+.contact{padding:100px 52px}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,50px);font-weight:600;line-height:1.2;margin-bottom:20px;color:#fff}
+.contact-title em{font-style:italic;font-weight:300;color:rgba(255,255,255,.5)}
+.contact-body{font-size:15px;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-bottom:40px}
+.contact-links{display:flex;flex-direction:column;gap:12px}
+.contact-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:rgba(255,255,255,.55);font-size:13.5px;transition:color .2s}
+.contact-link:hover{color:#2563ff}
+.cl-icon{width:38px;height:38px;border:1px solid rgba(255,255,255,.08);border-radius:3px;display:flex;align-items:center;justify-content:center;transition:border-color .2s;flex-shrink:0}
+.contact-link:hover .cl-icon{border-color:#2563ff}
+.form-wrap{background:#0d1535;border:1px solid rgba(255,255,255,.08);padding:40px}
+.form-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.form-sub{font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:28px;font-weight:300}
+.fg{margin-bottom:14px}
+label{display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
+input,select,textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:11px 14px;font-family:'Nunito',sans-serif;font-size:13px;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.25)}
+input:focus,select:focus,textarea:focus{border-color:#2563ff}
+select{cursor:pointer}
+select option{background:#0d1535;color:#fff}
+textarea{resize:vertical;min-height:90px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit{width:100%;padding:14px;background:#2563ff;color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:3px;cursor:pointer;transition:all .2s;margin-top:4px}
+.submit:hover{opacity:.85;transform:translateY(-1px)}
+.or-row{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:10.5px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em}
+.or-row::before,.or-row::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+.cal-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-family:'Nunito',sans-serif;font-size:13px;font-weight:500;border-radius:3px;text-decoration:none;transition:all .2s}
+.cal-btn:hover{border-color:#2563ff;color:#fff}
+.form-note{font-size:10.5px;color:rgba(255,255,255,.25);text-align:center;margin-top:14px;line-height:1.6}
+.form-success{display:none;text-align:center;padding:32px 0}
+.form-success.show{display:block}
+.form-body.hide{display:none}
+.fs-icon{font-size:32px;margin-bottom:12px}
+.fs-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:8px}
+.fs-body{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
+footer{padding:40px 52px;border-top:1px solid rgba(255,255,255,.08);background:#0d1535;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.footer-right{display:flex;gap:24px}
+.footer-right a{font-size:12px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.footer-right a:hover{color:#fff}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2)}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:860px){
+  nav,nav.scrolled{padding:18px 24px}
+  .hero{padding:110px 24px 80px}
+  .divider{margin:0 24px}
+  .services,.packages,.contact{padding:80px 24px}
+  .services-grid,.pkg-grid{grid-template-columns:1fr}
+  .contact-inner{grid-template-columns:1fr;gap:48px}
+  .form-row{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:20px;padding:32px 24px;text-align:center}
+  .footer-right{flex-wrap:wrap;justify-content:center}
+}
+</style>
 </head>
 <body>
-
-<!-- NAV -->
 
 <nav id="nav">
   <a href="#" class="logo">
@@ -525,52 +140,40 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
   <a href="#contact" class="nav-cta">Work With Us</a>
 </nav>
 
-<!-- HERO -->
-
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   <div class="hero-tag">Operational Architecture</div>
-  <h1 class="hero-h1">
-    Your business is only as strong<br>
-    <em>as what's running underneath it.</em>
-  </h1>
-  <p class="hero-sub">
-    We build the infrastructure that lets your business run properly. Not advice and leave. We come in, build it, and hand it over ready to use.
-  </p>
+  <h1 class="hero-h1">Your business is only as strong<br><em>as what's running underneath it.</em></h1>
+  <p class="hero-sub">We build the infrastructure that lets your business run properly. Not advice and leave. We come in, build it, and hand it over ready to use.</p>
   <div class="hero-actions">
-    <a href="#contact" class="btn-primary">Start a Conversation ↗</a>
-    <a href="#services" class="btn-ghost">See what we do <span>→</span></a>
+    <a href="#contact" class="btn-primary">Start a Conversation &#8599;</a>
+    <a href="#services" class="btn-ghost">See what we do <span>&#8594;</span></a>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- SERVICES -->
-
 <section class="services" id="services">
-  <div class="sec-tag reveal">What We Build</div>
-  <h2 class="sec-title reveal d1">
-    We don't organise your business.<br>
-    <em>We architect it.</em>
-  </h2>
+  <div class="sec-tag">What We Build</div>
+  <h2 class="sec-title">We don't organise your business.<br><em>We architect it.</em></h2>
   <div class="services-grid">
-    <div class="svc reveal">
+    <div class="svc">
       <div class="svc-num">01</div>
       <div class="svc-name">Business Operating System</div>
       <div class="svc-desc">Your company's complete headquarters. Every team, every function, every workflow in one place. Built in Notion. Built to scale with you.</div>
     </div>
-    <div class="svc reveal d1">
+    <div class="svc">
       <div class="svc-num">02</div>
       <div class="svc-name">Standard Operating Procedures</div>
       <div class="svc-desc">Every critical function your business performs, documented with clarity. Your team stops guessing. Your business stops depending on memory.</div>
     </div>
-    <div class="svc reveal d2">
+    <div class="svc">
       <div class="svc-num">03</div>
-      <div class="svc-name">Team Structure & Workflow Design</div>
+      <div class="svc-name">Team Structure &amp; Workflow Design</div>
       <div class="svc-desc">Roles defined. Responsibilities clear. We redesign how your team operates so execution stops requiring your personal supervision.</div>
     </div>
-    <div class="svc reveal d3">
+    <div class="svc">
       <div class="svc-num">04</div>
       <div class="svc-name">Operational Strategy</div>
       <div class="svc-desc">For founders thinking about the bigger picture. Not just fixing what's broken today, but building a structure that can hold everything you're building toward.</div>
@@ -580,16 +183,11 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
 
 <div class="divider"></div>
 
-<!-- PACKAGES -->
-
 <section class="packages" id="packages">
-  <div class="sec-tag reveal">Ways to Work Together</div>
-  <h2 class="sec-title reveal d1">
-    Three ways in.<br>
-    <em>One outcome.</em>
-  </h2>
+  <div class="sec-tag">Ways to Work Together</div>
+  <h2 class="sec-title">Three ways in.<br><em>One outcome.</em></h2>
   <div class="pkg-grid">
-    <div class="pkg reveal">
+    <div class="pkg">
       <div class="pkg-num">01</div>
       <div class="pkg-name">The Diagnostic</div>
       <div class="pkg-sub">Clarity before commitment</div>
@@ -602,7 +200,7 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
       </ul>
       <a href="#contact" class="pkg-cta">Get Started</a>
     </div>
-    <div class="pkg featured reveal d1">
+    <div class="pkg featured">
       <div class="pkg-badge">Most Popular</div>
       <div class="pkg-num">02</div>
       <div class="pkg-name">The Full Build</div>
@@ -617,7 +215,7 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
       </ul>
       <a href="#contact" class="pkg-cta">Get Started</a>
     </div>
-    <div class="pkg reveal d2">
+    <div class="pkg">
       <div class="pkg-num">03</div>
       <div class="pkg-name">The Retainer</div>
       <div class="pkg-sub">Your permanent ops partner</div>
@@ -635,21 +233,14 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
 
 <div class="divider"></div>
 
-<!-- CONTACT -->
-
 <section class="contact" id="contact">
   <div class="contact-inner">
     <div class="contact-left">
-      <div class="sec-tag reveal">Let's Talk</div>
-      <h2 class="contact-title reveal d1">
-        You don't need to have it<br>
-        <em>all figured out first.</em>
-      </h2>
-      <p class="contact-body reveal d2">
-        That is what the first conversation is for. Tell us where you are and we will take it from there.
-      </p>
-      <div class="contact-links reveal d3">
-        <a href="javascript:void(0)" onclick="window.location.href='mai'+'lto:giftieobeten'+'@gmail.com'" class="contact-link">
+      <div class="sec-tag">Let's Talk</div>
+      <h2 class="contact-title">You don't need to have it<br><em>all figured out first.</em></h2>
+      <p class="contact-body">That is what the first conversation is for. Tell us where you are and we will take it from there.</p>
+      <div class="contact-links">
+        <a href="javascript:void(0)" onclick="var a='giftieobeten';var b='gmail.com';window.location.href='mailto:'+a+'@'+b;" class="contact-link">
           <div class="cl-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#EA4335" stroke-width="1.5"/>
@@ -677,73 +268,54 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
         </a>
       </div>
     </div>
-
-```
-<div class="reveal d2">
-  <div class="form-wrap">
-    <div class="form-title">Send a Message</div>
-    <div class="form-sub">We respond to every enquiry within 24 hours.</div>
-    <div class="form-body" id="formBody">
-      <form id="enquiryForm">
-        <div class="form-row">
-          <div class="fg">
-            <label>Your Name</label>
-            <input type="text" name="name" placeholder="Full name" required>
-          </div>
-          <div class="fg">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="you@business.com" required>
-          </div>
+    <div>
+      <div class="form-wrap">
+        <div class="form-title">Send a Message</div>
+        <div class="form-sub">We respond to every enquiry within 24 hours.</div>
+        <div class="form-body" id="formBody">
+          <form id="enquiryForm">
+            <div class="form-row">
+              <div class="fg"><label>Your Name</label><input type="text" name="name" placeholder="Full name" required></div>
+              <div class="fg"><label>Email</label><input type="email" name="email" placeholder="you@business.com" required></div>
+            </div>
+            <div class="fg">
+              <label>Business Stage</label>
+              <select name="business_stage" required>
+                <option value="" disabled selected>Where are you right now?</option>
+                <option>Just starting out (under 1 year)</option>
+                <option>Building and growing (1 to 3 years)</option>
+                <option>Established and scaling (3 years and above)</option>
+                <option>Not sure, just exploring</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Service Interest</label>
+              <select name="service_interest" required>
+                <option value="" disabled selected>What interests you?</option>
+                <option>The Diagnostic</option>
+                <option>The Full Build</option>
+                <option>The Retainer</option>
+                <option>Not sure yet, just want to talk</option>
+              </select>
+            </div>
+            <div class="fg"><label>Tell Us About Your Business</label><textarea name="message" placeholder="What is going on in your business right now?" required></textarea></div>
+            <button type="button" onclick="submitForm()" class="submit" id="submitBtn">Send Message &#8599;</button>
+          </form>
+          <div class="or-row">or</div>
+          <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn">&#128197;&nbsp; Book a 30-min Discovery Call</a>
+          <p class="form-note">No pressure. No pushy sales. Just an honest conversation.</p>
         </div>
-        <div class="fg">
-          <label>Business Stage</label>
-          <select name="business_stage" required>
-            <option value="" disabled selected>Where are you right now?</option>
-            <option>Just starting out (under 1 year)</option>
-            <option>Building and growing (1 to 3 years)</option>
-            <option>Established and scaling (3 years and above)</option>
-            <option>Not sure, just exploring</option>
-          </select>
+        <div class="form-success" id="formSuccess">
+          <div class="fs-icon">&#10003;</div>
+          <div class="fs-title" id="fsTitle">Message received.</div>
+          <div class="fs-body" id="fsBody">We will be in touch within 24 hours.</div>
+          <br>
+          <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn" style="margin-top:8px">&#128197;&nbsp; Book a Discovery Call</a>
         </div>
-        <div class="fg">
-          <label>Service Interest</label>
-          <select name="service_interest" required>
-            <option value="" disabled selected>What interests you?</option>
-            <option>The Diagnostic</option>
-            <option>The Full Build</option>
-            <option>The Retainer</option>
-            <option>Not sure yet, just want to talk</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label>Tell Us About Your Business</label>
-          <textarea name="message" placeholder="What is going on in your business right now?" required></textarea>
-        </div>
-        <button type="button" onclick="submitForm()" class="submit" id="submitBtn">Send Message</button>
-      </form>
-      <div class="or-row">or</div>
-      <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn">
-        📅 &nbsp; Book a 30-min Discovery Call
-      </a>
-      <p class="form-note">No pressure. No pushy sales. Just an honest conversation.</p>
+      </div>
     </div>
-    <div class="form-success" id="formSuccess">
-      <div class="fs-icon">✓</div>
-      <div class="fs-title" id="fsTitle">Message received.</div>
-      <div class="fs-body" id="fsBody">We will be in touch within 24 hours. If you would rather speak sooner, book a call below.</div>
-      <br>
-      <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn" style="margin-top:8px;">
-        📅 &nbsp; Book a Discovery Call
-      </a>
-    </div>
-  </div>
-</div>
-```
-
   </div>
 </section>
-
-<!-- FOOTER -->
 
 <footer>
   <a href="#" class="footer-logo">
@@ -756,52 +328,52 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !import
     <a href="#contact">Contact</a>
     <a href="https://www.instagram.com/theoperationsdesk" target="_blank">Instagram</a>
   </div>
-  <div class="footer-copy">© 2026 The Operations Desk</div>
+  <div class="footer-copy">&#169; 2026 The Operations Desk</div>
 </footer>
 
 <script>
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 50); });
 
-  // Reveal
-  const obs = new IntersectionObserver(e => {
-    e.forEach(el => { if (el.isIntersecting) el.target.classList.add('in'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  // Form
-  async function submitForm() {
-    const form = document.getElementById('enquiryForm');
-    const btn = document.getElementById('submitBtn');
-    const name = form.querySelector('input[name="name"]').value.trim();
-    const required = form.querySelectorAll('[required]');
-    for (let f of required) { if (!f.value.trim()) { f.focus(); return; } }
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-    try {
-      const res = await fetch('https://formspree.io/f/maqpgdnj', {
-        method: 'POST', body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        const first = name.split(' ')[0];
-        const clean = first.charAt(0).toUpperCase() + first.slice(1).toLowerCase();
-        document.getElementById('fsTitle').textContent = 'Thank you, ' + clean + '.';
-        document.getElementById('fsBody').textContent = clean + ', we will review your message and be in touch within 24 hours.';
-        document.getElementById('formBody').classList.add('hide');
-        document.getElementById('formSuccess').classList.add('show');
-      } else {
-        btn.textContent = 'Send Message ↗';
-        btn.disabled = false;
-        alert('Something went wrong. Please email us at giftieobeten@gmail.com');
-      }
-    } catch {
+async function submitForm() {
+  var form = document.getElementById('enquiryForm');
+  var btn  = document.getElementById('submitBtn');
+  var n = form.querySelector('input[name="name"]').value.trim();
+  var e = form.querySelector('input[name="email"]').value.trim();
+  var s = form.querySelector('select[name="business_stage"]').value.trim();
+  var i = form.querySelector('select[name="service_interest"]').value.trim();
+  var m = form.querySelector('textarea[name="message"]').value.trim();
+  if (!n){ form.querySelector('input[name="name"]').focus(); return; }
+  if (!e){ form.querySelector('input[name="email"]').focus(); return; }
+  if (!s){ form.querySelector('select[name="business_stage"]').focus(); return; }
+  if (!i){ form.querySelector('select[name="service_interest"]').focus(); return; }
+  if (!m){ form.querySelector('textarea[name="message"]').focus(); return; }
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  try {
+    var r = await fetch('https://formspree.io/f/maqpgdnj', {
+      method:'POST',
+      body: JSON.stringify({name:n,email:e,business_stage:s,service_interest:i,message:m}),
+      headers:{'Accept':'application/json','Content-Type':'application/json'}
+    });
+    if(r.ok){
+      var first = n.split(' ')[0];
+      var clean = first.charAt(0).toUpperCase()+first.slice(1).toLowerCase();
+      document.getElementById('fsTitle').textContent = 'Thank you, '+clean+'.';
+      document.getElementById('fsBody').textContent = clean+', we will review your message and be in touch within 24 hours.';
+      document.getElementById('formBody').classList.add('hide');
+      document.getElementById('formSuccess').classList.add('show');
+    } else {
       btn.textContent = 'Send Message ↗';
       btn.disabled = false;
-      alert('Something went wrong. Please email us at giftieobeten@gmail.com');
+      alert('Something went wrong. Please try again or email us directly.');
     }
+  } catch(err){
+    btn.textContent = 'Send Message ↗';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again or email us directly.');
   }
+}
 </script>
 
 </body>
