@@ -21,13 +21,24 @@
   --line:   rgba(255,255,255,0.08);
 }
 
+/* FORCE ALL TEXT WHITE - prevent browser dark mode interference */
+*, *::before, *::after {
+color: inherit;
+-webkit-text-fill-color: inherit;
+}
+html {
+color-scheme: dark;
+background-color: #080f2a;
+color: #ffffff;
+}
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
 
 body {
 font-family: ‘Nunito’, sans-serif;
-background: #080f2a;
-color: var(–white);
+background: #080f2a !important;
+color: #ffffff !important;
 overflow-x: hidden;
 }
 
@@ -452,9 +463,55 @@ nav, nav.scrolled { padding: 18px 24px; }
 footer { flex-direction: column; gap: 20px; padding: 32px 24px; text-align: center; }
 .footer-right { flex-wrap: wrap; justify-content: center; }
 }
+
+/* HARDCODED COLORS - cannot be overridden */
+body, body * { color: #ffffff; }
+.hero-tag { color: #2563ff !important; }
+.hero-h1 { color: #ffffff !important; }
+.hero-h1 em { color: rgba(255,255,255,0.35) !important; }
+.hero-sub { color: rgba(255,255,255,0.55) !important; }
+.sec-tag { color: #2563ff !important; }
+.sec-title { color: #ffffff !important; }
+.sec-title em { color: rgba(255,255,255,0.35) !important; }
+.svc-name { color: #ffffff !important; }
+.svc-desc { color: rgba(255,255,255,0.55) !important; }
+.svc-num { color: rgba(255,255,255,0.04) !important; }
+.pkg-num { color: #2563ff !important; }
+.pkg-name { color: #ffffff !important; }
+.pkg-sub { color: rgba(255,255,255,0.55) !important; }
+.pkg-item { color: rgba(255,255,255,0.7) !important; }
+.pkg.featured .pkg-num { color: rgba(255,255,255,0.6) !important; }
+.pkg.featured .pkg-name { color: #ffffff !important; }
+.pkg.featured .pkg-sub { color: rgba(255,255,255,0.65) !important; }
+.pkg.featured .pkg-item { color: rgba(255,255,255,0.85) !important; }
+.contact-title { color: #ffffff !important; }
+.contact-title em { color: rgba(255,255,255,0.35) !important; }
+.contact-body { color: rgba(255,255,255,0.55) !important; }
+.contact-link { color: rgba(255,255,255,0.55) !important; }
+.contact-link:hover { color: #2563ff !important; }
+.form-title { color: #ffffff !important; }
+.form-sub { color: rgba(255,255,255,0.55) !important; }
+label { color: rgba(255,255,255,0.35) !important; }
+input, select, textarea { color: #ffffff !important; background: rgba(255,255,255,0.04) !important; }
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2) !important; -webkit-text-fill-color: rgba(255,255,255,0.2) !important; }
+.or-row { color: rgba(255,255,255,0.2) !important; }
+.cal-btn { color: rgba(255,255,255,0.55) !important; }
+.form-note { color: rgba(255,255,255,0.2) !important; }
+.logo-text { color: #ffffff !important; }
+.nav-cta { color: #ffffff !important; }
+.btn-primary { color: #ffffff !important; }
+.btn-ghost { color: rgba(255,255,255,0.55) !important; }
+.footer-right a { color: rgba(255,255,255,0.55) !important; }
+.footer-copy { color: rgba(255,255,255,0.2) !important; }
+.fs-title { color: #ffffff !important; }
+.fs-body { color: rgba(255,255,255,0.55) !important; }
+.pkg-cta { color: #ffffff !important; }
+.pkg.featured .pkg-cta { color: #ffffff !important; }
+
 </style>
 <meta name="netlify-no-email-obfuscation" content="true">
-
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#080f2a">
 </head>
 <body>
 
