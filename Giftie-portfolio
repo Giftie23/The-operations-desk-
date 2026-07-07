@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<title>Giftie Obeten, Social Media Strategist & Content Operations Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF8F3;
+    --paper-2:#FAF8F3;
+    --ink:#181B1E;
+    --ink-soft:#40454A;
+    --berry:#2C5F5A;
+    --berry-soft:#3D7A73;
+    --gold:#2C5F5A;
+    --muted:#84898D;
+    --line:#E3DFD5;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior:smooth; color-scheme:light only; background:#FAF8F3; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--berry); color:var(--paper); }
+
+  .noise{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.035; mix-blend-mode:multiply;
+    background-image: radial-gradient(circle at 1px 1px, #000 1px, transparent 0);
+    background-size: 3px 3px;
+  }
+
+  a{ color:inherit; }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--berry);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw;
+    background:rgba(241,237,226,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .logo{ font-family:'Fraunces', serif; font-weight:600; font-size:19px; letter-spacing:.01em; }
+  nav .handle{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; z-index:1;
+    min-height:92vh;
+    display:grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap:40px;
+    align-items:center;
+    padding:6vw;
+  }
+  .hero-name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:clamp(52px, 8.4vw, 118px);
+    line-height:.92;
+    letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  .hero-name .accent{ color:var(--berry); font-style:normal; }
+  .hero-title{
+    margin-top:22px;
+    font-size:clamp(18px,2vw,23px);
+    font-weight:500;
+    color:var(--ink-soft);
+    max-width:520px;
+  }
+  .hero-loc{
+    margin-top:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .hero-stats{
+    display:flex; flex-direction:column; gap:0;
+    border-left:1px solid var(--line);
+    padding-left:36px;
+  }
+  .stat{ padding:20px 0; border-bottom:1px solid var(--line); }
+  .stat:last-child{ border-bottom:none; }
+  .stat .num{ font-family:'Fraunces', serif; font-size:40px; font-weight:600; color:var(--berry); line-height:1; }
+  .stat .label{ margin-top:6px; font-size:13.5px; color:var(--ink-soft); }
+
+  /* ---------- STORIES TRAY (signature element) ---------- */
+  .tray-wrap{
+    position:relative; z-index:1;
+    padding:26px 6vw 40px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--paper-2);
+  }
+  .tray-label{ margin-bottom:18px; }
+  .tray{
+    display:flex; gap:26px; overflow-x:auto; padding-bottom:6px;
+    scrollbar-width:none;
+  }
+  .tray::-webkit-scrollbar{ display:none; }
+  .story{
+    flex:0 0 auto; width:84px; text-align:center; cursor:default;
+  }
+  .story .ring{
+    width:74px; height:74px; border-radius:50%;
+    padding:3px;
+    background: conic-gradient(from 220deg, var(--gold), var(--berry-soft), var(--berry), var(--gold));
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .25s ease;
+  }
+  .story:hover .ring{ transform:scale(1.08); }
+  .story .ring-inner{
+    width:100%; height:100%; border-radius:50%;
+    background:var(--card);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .story svg{ width:28px; height:28px; stroke:var(--ink); }
+  .story .s-label{ margin-top:9px; font-size:11.5px; font-weight:500; color:var(--ink-soft); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{ position:relative; z-index:1; padding:90px 6vw; }
+  .section-head{ display:flex; align-items:baseline; gap:18px; margin-bottom:46px; }
+  .section-head h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:clamp(30px,3.4vw,44px);
+  }
+  .section-head .rule{ flex:1; height:1px; background:var(--line); }
+
+  /* ---------- WHO I AM ---------- */
+  .who-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:60px; }
+  .who-copy p{ font-size:17px; line-height:1.75; color:var(--ink-soft); margin-bottom:20px; }
+  .who-copy p:first-child::first-letter{
+    font-family:'Fraunces', serif; font-size:56px; font-weight:600; color:var(--berry);
+    float:left; line-height:.8; margin-right:10px; margin-top:6px;
+  }
+  .pillars{ display:flex; flex-direction:column; gap:14px; }
+  .pill{
+    display:flex; align-items:center; gap:14px;
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:16px 18px;
+    font-size:14.5px; font-weight:500;
+  }
+  .pill .dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); flex:0 0 auto; }
+
+  /* ---------- EXPERIENCE (post-card style) ---------- */
+  .post{
+    background:var(--card); border:1px solid var(--line); border-radius:20px;
+    overflow:hidden; margin-bottom:34px;
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .post.in{ opacity:1; transform:translateY(0); }
+  .post-top{
+    display:flex; align-items:center; gap:14px;
+    padding:20px 26px; border-bottom:1px solid var(--line);
+  }
+  .avatar{
+    width:42px; height:42px; border-radius:50%;
+    background:linear-gradient(135deg, var(--berry), var(--gold));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--paper); font-family:'Fraunces',serif; font-weight:600; font-size:16px;
+  }
+  .post-top .who{ font-weight:600; font-size:15.5px; }
+  .post-top .meta{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted); margin-top:2px; }
+
+  .post-goal{
+    padding:34px 26px;
+    background:linear-gradient(120deg, var(--berry) 0%, var(--berry-soft) 60%, var(--gold) 130%);
+    color:var(--paper);
+  }
+  .post-goal .eyebrow-w{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; opacity:.85; margin-bottom:10px; }
+  .post-goal p{ font-family:'Fraunces', serif; font-weight:500; font-style:italic; font-size:clamp(20px,2.2vw,27px); line-height:1.35; }
+
+  .post-body{ padding:26px 26px 10px; }
+  .post-row{ margin-bottom:20px; }
+  .post-row .k{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--berry); margin-bottom:6px; }
+  .post-row .v{ font-size:15px; line-height:1.65; color:var(--ink-soft); }
+
+  .post-bottom{
+    display:flex; align-items:center; gap:22px;
+    padding:14px 26px 22px; color:var(--muted);
+  }
+  .post-bottom .ico{ display:flex; align-items:center; gap:7px; font-size:12.5px; }
+  .post-bottom svg{ width:17px; height:17px; stroke:var(--muted); fill:none; }
+
+  /* ---------- TOOLSET ---------- */
+  .tools-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .tool-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px;
+  }
+  .tool-card .th{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .tool-card svg{ width:22px; height:22px; stroke:var(--berry); fill:none; }
+  .tool-card h3{ font-family:'Fraunces', serif; font-weight:600; font-size:18px; }
+  .tool-card p{ font-size:13.5px; color:var(--ink-soft); line-height:1.55; }
+
+  /* ---------- EXPERTISE PILLS ---------- */
+  .expertise-wrap{ display:flex; flex-wrap:wrap; gap:12px; }
+  .expertise-wrap span{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+    border:1px solid var(--berry); color:var(--berry);
+    padding:9px 16px; border-radius:100px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    position:relative; z-index:1;
+    background:var(--ink); color:var(--paper);
+    padding:90px 6vw 60px;
+  }
+  footer h2{ font-family:'Fraunces', serif; font-style:italic; font-weight:600; font-size:clamp(38px,5vw,64px); margin-bottom:40px; }
+  .contact-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:60px; }
+  .contact-btn{
+    display:flex; align-items:center; gap:12px;
+    border:1px solid rgba(241,237,226,.25); border-radius:14px;
+    padding:18px 20px; font-size:14px; font-weight:500;
+    color:var(--paper);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .contact-btn:hover{ border-color:var(--gold); background:rgba(61,122,115,.14); }
+  .contact-btn svg{ width:18px; height:18px; stroke:var(--paper); fill:none; flex:0 0 auto; }
+  footer .fine{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:rgba(250,248,243,.7); }
+
+  @media (max-width:820px){
+    .hero{ grid-template-columns:1fr; }
+    .hero-stats{ border-left:none; border-top:1px solid var(--line); padding-left:0; padding-top:24px; flex-direction:row; flex-wrap:wrap; gap:24px; }
+    .stat{ border-bottom:none; padding:0; flex:1 1 40%; }
+    .who-grid{ grid-template-columns:1fr; gap:34px; }
+    .tools-grid{ grid-template-columns:1fr 1fr; }
+    .contact-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .post{ transition:none; }
+    .story .ring{ transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<nav>
+  <div class="logo">Giftie Obeten</div>
+  <div class="handle">@giftieobeten</div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">Portfolio &amp; Resume, 2026</div>
+    <h1 class="hero-name">Content,<br><span class="accent">directed.</span></h1>
+    <p class="hero-title">Social Media Strategist &amp; Content Operations Lead. Building the editorial architecture behind brands that grow on Instagram.</p>
+    <div class="hero-loc">NIGERIA · OPEN TO REMOTE ENGAGEMENTS</div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="num">03</div>
+      <div class="label">Brand &amp; client content engagements directed</div>
+    </div>
+    <div class="stat">
+      <div class="num">2025</div>
+      <div class="label">Active in social media leadership since</div>
+    </div>
+    <div class="stat">
+      <div class="num">06+</div>
+      <div class="label">Core platforms &amp; production tools</div>
+    </div>
+  </div>
+</section>
+
+<div class="tray-wrap">
+  <div class="tray-label eyebrow">The Toolkit</div>
+  <div class="tray" id="tray"></div>
+</div>
+
+<section class="block" id="who">
+  <div class="section-head"><h2>Who I Am</h2><div class="rule"></div></div>
+  <div class="who-grid">
+    <div class="who-copy">
+      <p>Content strategist and social media lead with a hybrid background in brand storytelling and operational leadership. I direct end-to-end content architecture, editorial calendars, platform-specific narrative strategy, and cross-functional publishing workflows for hair and beauty, remote agency, and founder-led brands.</p>
+      <p>I bring a combination of creative execution and structural discipline that is uncommon in this space. The same precision used to lead cross-functional teams of 70+ across client businesses now shapes how a brand's content engine is designed, sequenced, and run.</p>
+    </div>
+    <div class="pillars">
+      <div class="pill"><span class="dot"></span>Content Architecture &amp; Editorial Strategy</div>
+      <div class="pill"><span class="dot"></span>Platform Algorithm Literacy</div>
+      <div class="pill"><span class="dot"></span>Short-Form Video Production Pipeline</div>
+      <div class="pill"><span class="dot"></span>Visual Brand Systems &amp; Grid Architecture</div>
+      <div class="pill"><span class="dot"></span>Client &amp; Community Relationship Management</div>
+      <div class="pill"><span class="dot"></span>Campaign Design &amp; Launch Strategy</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="experience" style="background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="section-head"><h2>Experience</h2><div class="rule"></div></div>
+
+  <article class="post" data-post>
+    <div class="post-top">
+      <div class="avatar">TO</div>
+      <div>
+        <div class="who">The Operations Desk &middot; Content Strategist, Founder</div>
+        <div class="meta">NIGERIA &amp; UK · FEBRUARY 2026 – PRESENT</div>
+      </div>
+    </div>
+    <div class="post-goal">
+      <div class="eyebrow-w">The Goal</div>
+      <p>Build a content engine for my own brand, so the page could sell the service without sounding like a pitch deck.</p>
+    </div>
+    <div class="post-body">
+      <div class="post-row"><div class="k">Strategy</div><div class="v">Wrote a full content library anchored in real founder pain points, including talking-head scripts, carousel breakdowns, and ad copy, and developed my own business burnout story as a recurring hook.</div></div>
+      <div class="post-row"><div class="k">Execution</div><div class="v">Delivered a complete script set, a content calendar, and Instagram ad copy in a single strategy pass, sequenced against conversion goals for an audience of overwhelmed founders and business owners.</div></div>
+    </div>
+    <div class="post-bottom">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.5 12 21 12 21z"/></svg>Editorial Strategy</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Founder Voice</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>Content Library</span>
+    </div>
+  </article>
+
+  <article class="post" data-post>
+    <div class="post-top">
+      <div class="avatar">CC</div>
+      <div>
+        <div class="who">The Content Corner &middot; Social Media Manager, Client Accounts</div>
+        <div class="meta">REMOTE · JULY 2024 – DECEMBER 2025</div>
+      </div>
+    </div>
+    <div class="post-goal">
+      <div class="eyebrow-w">The Goal</div>
+      <p>Keep multiple client Instagram pages active, on brand, and growing at the same time, without a single account going quiet.</p>
+    </div>
+    <div class="post-body">
+      <div class="post-row"><div class="k">Strategy</div><div class="v">Engineered a distinct editorial calendar per client rather than a shared template, calibrating tone, visual grammar, and posting cadence to each brand's positioning.</div></div>
+      <div class="post-row"><div class="k">Execution</div><div class="v">Directed simultaneous content operations across every assigned client account within a fully remote content team, owning day-to-day publishing, caption architecture, and direct client-facing community engagement.</div></div>
+    </div>
+    <div class="post-bottom">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Multi-Account</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18M18.7 8l-5.1 5.1-3-3L3 17"/></svg>Growth Cadence</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Community Mgmt</span>
+    </div>
+  </article>
+
+  <article class="post" data-post>
+    <div class="post-top">
+      <div class="avatar">HF</div>
+      <div>
+        <div class="who">Hair From Us &middot; Marketing &amp; Content Coordinator, Social Media Lead</div>
+        <div class="meta">REMOTE · SINCE EARLY 2025</div>
+      </div>
+    </div>
+    <div class="post-goal">
+      <div class="eyebrow-w">The Goal</div>
+      <p>Give the brand's Instagram consistent, independent ownership, and turn one-off promotions into content that keeps working long after launch.</p>
+    </div>
+    <div class="post-body">
+      <div class="post-row"><div class="k">Strategy</div><div class="v">Built an independent Stories framework to sustain daily audience engagement between feed cycles, and conceived "The HFU Vault," a recurring masterclass series positioned as a permanent content pillar.</div></div>
+      <div class="post-row"><div class="k">Execution</div><div class="v">Directed the brand's first anniversary flash sale from concept through execution, and built a repeatable long-form video production pipeline for the founder's personal series.</div></div>
+    </div>
+    <div class="post-bottom">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7zM14 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/></svg>Video Pipeline</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 4v6l4 2"/></svg>Stories Framework</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7M22 7H2l2-5h16zM12 22V7"/></svg>Flash Sale Launch</span>
+    </div>
+  </article>
+</section>
+
+<section class="block" id="tools">
+  <div class="section-head"><h2>Technical Toolset</h2><div class="rule"></div></div>
+  <div class="tools-grid" id="toolsGrid"></div>
+</section>
+
+<section class="block" id="expertise" style="padding-top:0;">
+  <div class="section-head"><h2>Areas of Expertise</h2><div class="rule"></div></div>
+  <div class="expertise-wrap">
+    <span>Content Architecture &amp; Editorial Strategy</span>
+    <span>Platform Algorithm Literacy</span>
+    <span>Short-Form Video Production Pipeline</span>
+    <span>Visual Brand Systems &amp; Grid Architecture</span>
+    <span>Cross-Functional Content Operations</span>
+    <span>Client &amp; Community Relationship Management</span>
+    <span>Campaign Design &amp; Launch Strategy</span>
+    <span>Performance Analytics &amp; Reporting</span>
+  </div>
+</section>
+
+<footer>
+  <h2>Let's work together.</h2>
+  <div class="contact-grid" style="grid-template-columns:1fr; max-width:440px;">
+    <a class="contact-btn" href="mailto:giftieobeten@gmail.com"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 6l-10 7L2 6"/></svg>giftieobeten@gmail.com</a>
+  </div>
+  <div class="fine" style="margin-bottom:10px;">NIGERIA &middot; OPEN TO REMOTE ENGAGEMENTS</div>
+  <div class="fine">GIFTIE OBETEN &middot; SOCIAL MEDIA STRATEGIST &amp; CONTENT OPERATIONS LEAD</div>
+</footer>
+
+<script>
+  // Toolkit stories tray + tools grid share one data source
+  const tools = [
+    { label: "CapCut", detail: "Multi-track editing, keyframing, auto-caption sync, pacing for retention.",
+      icon: '<path d="M23 7l-7 5 7 5V7zM14 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>' },
+    { label: "InShot", detail: "Rapid mobile-first cuts and exports for fast-turnaround content.",
+      icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/>' },
+    { label: "Canva", detail: "Brand kit architecture, grid and template libraries, carousel and bio design.",
+      icon: '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="17" r="2.5"/><circle cx="6" cy="17" r="2.5"/><path d="M13.5 9v4M8.2 15.5l3-3M15.8 15.5l3-3"/>' },
+    { label: "Notion", detail: "Editorial calendar builds, shared asset workflows, content OS design.",
+      icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>' },
+    { label: "Meta Suite", detail: "Scheduling, publishing, and reach/interaction analytics across accounts.",
+      icon: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/>' },
+    { label: "IG Insights", detail: "Keyword-first bio and caption optimization, DM-share-driven reach strategy.",
+      icon: '<path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.1-3-3L3 17"/>' },
+    { label: "Workspace", detail: "Scripting, shared documentation, and cross-team collaboration.",
+      icon: '<path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/>' },
+  ];
+
+  const tray = document.getElementById('tray');
+  tools.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'story';
+    el.innerHTML = `<div class="ring"><div class="ring-inner"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div></div><div class="s-label">${t.label}</div>`;
+    tray.appendChild(el);
+  });
+
+  const grid = document.getElementById('toolsGrid');
+  tools.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'tool-card';
+    el.innerHTML = `<div class="th"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg><h3>${t.label}</h3></div><p>${t.detail}</p>`;
+    grid.appendChild(el);
+  });
+
+  // Scroll reveal for post cards
+  const posts = document.querySelectorAll('[data-post]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  posts.forEach(p => io.observe(p));
+  // Safety net: ensure visibility even if IO never fires (reduced motion, odd viewports, etc.)
+  setTimeout(() => posts.forEach(p => p.classList.add('in')), 1200);
+</script>
+
+</body>
+</html>
