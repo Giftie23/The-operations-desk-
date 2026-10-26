@@ -1,380 +1,627 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Operations Desk</title>
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#080f2a">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Operations Desk | Systems for the way your business runs</title>
+<meta name="description" content="The Operations Desk helps business owners improve how their businesses run: structure, processes, workflows and the digital systems around them.">
+<meta name="theme-color" content="#0b1230">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Operations Desk">
+<meta property="og:title" content="The Operations Desk | Systems for the way your business runs">
+<meta property="og:description" content="We help business owners improve how their businesses run: structure, processes, workflows and the digital systems around them.">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Operations Desk">
+<meta name="twitter:description" content="Operations and systems for business owners. We find what is not working, then build what fits.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1230'/%3E%3Cpath d='M8 24V8h16M8 16h10' stroke='%23f4f1ea' stroke-width='3' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
-html { color-scheme: dark; background: #080f2a; color: #fff; scroll-behavior: smooth; }
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Nunito',sans-serif; background:#080f2a; color:#fff; overflow-x:hidden; }
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:#080f2a}
-::-webkit-scrollbar-thumb{background:#2563ff;border-radius:2px}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
-nav.scrolled{background:rgba(8,15,42,.97);backdrop-filter:blur(20px);padding:16px 52px;border-bottom:1px solid rgba(255,255,255,.08)}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-mark{width:28px;height:28px;border:1.5px solid #2563ff;border-radius:3px;display:flex;align-items:center;justify-content:center;position:relative}
-.logo-mark::after{content:'';width:9px;height:9px;background:#2563ff;border-radius:1px}
-.logo-text{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff}
-.nav-cta{padding:10px 24px;background:#2563ff;color:#fff;font-size:12px;font-weight:700;letter-spacing:.05em;border-radius:3px;text-decoration:none;transition:opacity .2s}
-.nav-cta:hover{opacity:.85}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 52px 80px;position:relative;overflow:hidden}
-.hero-glow{position:absolute;pointer-events:none;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,255,.1) 0%,transparent 65%);top:-100px;right:-100px}
-.hero-glow2{position:absolute;pointer-events:none;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,255,.06) 0%,transparent 65%);bottom:-80px;left:-80px}
-.hero-tag{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2563ff;display:flex;align-items:center;gap:10px;margin-bottom:32px}
-.hero-tag::before{content:'';width:24px;height:1px;background:#2563ff}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,90px);font-weight:700;line-height:1.05;letter-spacing:-.02em;max-width:800px;margin-bottom:28px;color:#fff}
-.hero-h1 em{font-style:italic;font-weight:300;color:rgba(255,255,255,.5)}
-.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.8;max-width:520px;margin-bottom:48px}
-.hero-actions{display:flex;align-items:center;gap:20px}
-.btn-primary{padding:15px 32px;background:#2563ff;color:#fff;font-size:13px;font-weight:700;letter-spacing:.04em;border-radius:3px;text-decoration:none;transition:all .2s;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.btn-primary:hover{opacity:.85;transform:translateY(-2px)}
-.btn-ghost{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:6px}
-.btn-ghost span{transition:transform .2s}
-.btn-ghost:hover{color:#fff}
-.btn-ghost:hover span{transform:translateX(4px)}
-.divider{height:1px;background:rgba(255,255,255,.08);margin:0 52px}
-.services{padding:100px 52px}
-.sec-tag{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2563ff;display:flex;align-items:center;gap:10px;margin-bottom:20px}
-.sec-tag::before{content:'';width:20px;height:1px;background:#2563ff}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.15;letter-spacing:-.01em;margin-bottom:60px;color:#fff}
-.sec-title em{font-style:italic;font-weight:300;color:rgba(255,255,255,.5)}
-.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.svc{padding:44px 40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);transition:all .3s;position:relative;overflow:hidden}
-.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#2563ff;transform:scaleX(0);transition:transform .3s;transform-origin:left}
-.svc:hover{background:rgba(37,99,255,.07);border-color:rgba(37,99,255,.2)}
-.svc:hover::after{transform:scaleX(1)}
-.svc-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:rgba(255,255,255,.04);position:absolute;top:16px;right:20px;line-height:1}
-.svc-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:-.01em}
-.svc-desc{font-size:13.5px;color:rgba(255,255,255,.55);line-height:1.8;font-weight:300}
-.packages{padding:100px 52px;background:#0d1535}
-.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
-.pkg{padding:44px 36px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);transition:all .3s;position:relative}
-.pkg.featured{background:#2563ff;border-color:#2563ff;box-shadow:0 8px 40px rgba(37,99,255,.35)}
-.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fff;color:#080f2a;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 12px;border-radius:2px;white-space:nowrap}
-.pkg-num{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#2563ff;margin-bottom:12px}
-.pkg.featured .pkg-num{color:rgba(255,255,255,.6)}
-.pkg-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:6px}
-.pkg-sub{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:20px;font-weight:300}
-.pkg.featured .pkg-sub{color:rgba(255,255,255,.75)}
-.pkg-line{height:1px;background:rgba(255,255,255,.08);margin-bottom:20px}
-.pkg.featured .pkg-line{background:rgba(255,255,255,.2)}
-.pkg-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
-.pkg-item{font-size:12.5px;color:rgba(255,255,255,.65);padding-left:16px;position:relative;font-weight:300;line-height:1.5}
-.pkg-item::before{content:'';position:absolute;left:0;top:8px;width:6px;height:1px;background:#2563ff}
-.pkg.featured .pkg-item{color:rgba(255,255,255,.9)}
-.pkg.featured .pkg-item::before{background:rgba(255,255,255,.5)}
-.pkg-cta{display:block;text-align:center;padding:13px;border-radius:3px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.08);color:#fff}
-.pkg-cta:hover{background:#2563ff;border-color:#2563ff}
-.pkg.featured .pkg-cta{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff}
-.pkg.featured .pkg-cta:hover{background:rgba(255,255,255,.25)}
-.contact{padding:100px 52px}
-.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,50px);font-weight:600;line-height:1.2;margin-bottom:20px;color:#fff}
-.contact-title em{font-style:italic;font-weight:300;color:rgba(255,255,255,.5)}
-.contact-body{font-size:15px;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-bottom:40px}
-.contact-links{display:flex;flex-direction:column;gap:12px}
-.contact-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:rgba(255,255,255,.55);font-size:13.5px;transition:color .2s}
-.contact-link:hover{color:#2563ff}
-.cl-icon{width:38px;height:38px;border:1px solid rgba(255,255,255,.08);border-radius:3px;display:flex;align-items:center;justify-content:center;transition:border-color .2s;flex-shrink:0}
-.contact-link:hover .cl-icon{border-color:#2563ff}
-.form-wrap{background:#0d1535;border:1px solid rgba(255,255,255,.08);padding:40px}
-.form-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
-.form-sub{font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:28px;font-weight:300}
-.fg{margin-bottom:14px}
-label{display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
-input,select,textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:11px 14px;font-family:'Nunito',sans-serif;font-size:13px;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,.25)}
-input:focus,select:focus,textarea:focus{border-color:#2563ff}
-select{cursor:pointer}
-select option{background:#0d1535;color:#fff}
-textarea{resize:vertical;min-height:90px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.submit{width:100%;padding:14px;background:#2563ff;color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:3px;cursor:pointer;transition:all .2s;margin-top:4px}
-.submit:hover{opacity:.85;transform:translateY(-1px)}
-.or-row{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:10.5px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em}
-.or-row::before,.or-row::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
-.cal-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-family:'Nunito',sans-serif;font-size:13px;font-weight:500;border-radius:3px;text-decoration:none;transition:all .2s}
-.cal-btn:hover{border-color:#2563ff;color:#fff}
-.form-note{font-size:10.5px;color:rgba(255,255,255,.25);text-align:center;margin-top:14px;line-height:1.6}
-.form-success{display:none;text-align:center;padding:32px 0}
-.form-success.show{display:block}
-.form-body.hide{display:none}
-.fs-icon{font-size:32px;margin-bottom:12px}
-.fs-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:8px}
-.fs-body{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
-footer{padding:40px 52px;border-top:1px solid rgba(255,255,255,.08);background:#0d1535;display:flex;align-items:center;justify-content:space-between}
-.footer-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.footer-right{display:flex;gap:24px}
-.footer-right a{font-size:12px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
-.footer-right a:hover{color:#fff}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.2)}
-@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:860px){
-  nav,nav.scrolled{padding:18px 24px}
-  .hero{padding:110px 24px 80px}
-  .divider{margin:0 24px}
-  .services,.packages,.contact{padding:80px 24px}
-  .services-grid,.pkg-grid{grid-template-columns:1fr}
-  .contact-inner{grid-template-columns:1fr;gap:48px}
-  .form-row{grid-template-columns:1fr}
-  footer{flex-direction:column;gap:20px;padding:32px 24px;text-align:center}
-  .footer-right{flex-wrap:wrap;justify-content:center}
+:root{--paper:#f4f1ea;--paper2:#ebe6da;--ink:#101523;--navy:#0b1230;--muted:#5a606b;--line:rgba(16,21,35,.18);--accent:#c8441b;--hot:#ff8a63;
+--serif:'Instrument Serif',Georgia,'Times New Roman',serif;--font:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--pad:clamp(20px,5vw,64px);--sec:clamp(72px,10vw,150px);--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font:400 clamp(16px,.3vw + 15px,18px)/1.6 var(--font);overflow-x:hidden}
+svg{display:block}a{color:inherit}button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{padding-inline:var(--pad);max-width:1360px;margin-inline:auto}
+section{padding-block:var(--sec)}
+h1,h2,h3,h4{font-weight:500;line-height:1.02;letter-spacing:-.04em}
+h2{font-size:clamp(34px,6vw,84px);max-width:16ch;text-wrap:balance}
+h3{font-size:clamp(19px,1.6vw,22px);letter-spacing:-.02em;line-height:1.25}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+.sub{color:var(--muted);max-width:54ch;margin-top:20px}
+.head{margin-bottom:clamp(36px,5vw,72px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 26px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;font-size:15px;border:1px solid var(--ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+header{position:fixed;inset:0 0 auto 0;z-index:60;padding-top:env(safe-area-inset-top,0px);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+header.solid{background:rgba(244,241,234,.94);backdrop-filter:blur(8px);border-color:var(--line)}
+nav{display:flex;justify-content:space-between;align-items:center;height:64px}
+.logo{font-weight:600;letter-spacing:-.03em;font-size:18px;text-decoration:none}.logo i{color:var(--accent);font-style:normal}
+nav ul{display:flex;gap:28px;list-style:none;align-items:center}
+nav ul a{text-decoration:none;font-size:14px;font-weight:500}
+nav ul a:not(.btn):hover{color:var(--accent)}
+nav .btn{min-height:40px;padding:0 18px;font-size:14px;color:var(--paper)}
+.menu{display:none;background:none;border:0;font-size:14px;font-weight:600;min-height:44px;padding:0 4px;cursor:pointer}
+/* hero story */
+.story{height:280vh;position:relative;padding:0}
+.pin{position:sticky;top:0;height:100vh;height:100svh;padding-top:64px;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,64px);align-items:center;max-width:1360px;margin:auto;padding-inline:var(--pad)}
+h1{font-size:clamp(44px,min(8.6vw,13.5vh),128px);letter-spacing:-.055em;line-height:.94;text-wrap:balance}
+h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.02em;font-size:1.08em;color:var(--accent)}
+.demo h2 em{color:var(--hot)}
+.lede{font-size:clamp(16px,1.3vw,20px);color:#2d3340;max-width:44ch;margin:26px 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.cap{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);min-height:3.4em;max-width:44ch}
+.stagewrap{position:relative}
+.stage{position:relative;width:100%;aspect-ratio:1/1;max-height:66svh;margin:auto;border:1px solid var(--line);background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 33.33%,var(--paper)}
+.stage .lanes,.stage .lbl,.stage .band{opacity:0;transition:none}
+.band{position:absolute;top:0;bottom:0;width:31%;background:rgba(16,21,35,.05);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.lanes{position:absolute;inset:0;width:100%;height:100%}
+.lanes line{stroke:var(--accent);stroke-width:1.6;vector-effect:non-scaling-stroke}
+.lbl{position:absolute;top:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transform:translateX(-50%)}
+.chip{position:absolute;width:28%;padding:9px 11px;background:var(--paper);border:1px dashed var(--ink);font-size:clamp(11px,1.15vw,14px);font-weight:600;line-height:1.2;transform:translate(-50%,-50%)}
+.chip .tg{display:block;font-size:.82em;font-weight:500;color:var(--accent);margin-top:2px}
+.chip.resolved{border-style:solid;background:#fff}.chip.resolved .tg{color:var(--muted)}
+.stage.tx .chip{transition:left 1.1s var(--ease),top 1.1s var(--ease),transform 1.1s var(--ease)}
+.stage.tx .lanes,.stage.tx .lbl,.stage.tx .band{transition:opacity 1s .9s}
+.flat{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:2%;padding:3% 1.5%}
+.fl{position:relative;display:flex;flex-direction:column;justify-content:space-around;gap:8px;background:rgba(16,21,35,.05);border:1px solid var(--line);padding:30px 8px 8px}
+.fl>b{position:absolute;top:8px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.flat .chip{position:static;transform:none;width:auto}
+.stage.live .flat{display:none}
+.stage:not(.live) .tangle,.stage:not(.live) .lanes,.stage:not(.live) .lbl,.stage:not(.live) .band{display:none}
+.illus{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:12px;color:var(--muted)}.illus b{color:var(--accent);font-weight:600}
+.tangle{position:absolute;inset:0;width:100%;height:100%}.tangle path{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:4 4;vector-effect:non-scaling-stroke}
+.stage.tx .tangle{transition:opacity 1s}
+.chip .ow{position:absolute;top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--paper);border:1px dashed var(--muted);color:var(--muted)}
+.chip.resolved .ow{background:var(--accent);border:1px solid var(--accent);color:#fff}
+.js .pin>*{animation:in .9s var(--ease) both}.js .pin>*:nth-child(2){animation-delay:.15s}
+@keyframes in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+/* rows (solutions + options) */
+.rows{border-top:1px solid var(--ink)}
+.r{border-bottom:1px solid var(--ink)}
+.r>button{display:grid;grid-template-columns:56px 1fr auto 36px;gap:20px;align-items:center;width:100%;padding:clamp(18px,2.4vw,30px) 0;background:none;border:0;text-align:left;cursor:pointer;min-height:48px}
+.r>button.nm{grid-template-columns:56px 1fr 36px}
+.r .n{font-size:13px;font-weight:600;color:var(--accent)}
+.r .t{display:block;font-size:clamp(26px,5.4vw,72px);letter-spacing:-.045em;line-height:1;font-weight:500;transition:transform .45s var(--ease),color .3s}
+.r .d{display:block;font-size:15px;color:var(--muted);margin-top:8px;max-width:52ch;letter-spacing:0}
+.r:hover .t,.r.open .t{transform:translateX(10px);color:var(--accent)}
+.r .pl{font-size:28px;line-height:1;text-align:center;color:var(--accent);transition:transform .35s}
+.r.open .pl{transform:rotate(45deg)}
+.mini{width:96px;height:48px;color:var(--ink);opacity:.8}
+.mini *{fill:none;stroke:currentColor;stroke-width:1.5}
+.mini *{transform-box:fill-box;transform-origin:bottom;transition:transform .5s var(--ease),stroke .3s}
+.r:hover .mini *,.r.open .mini *{stroke:var(--accent)}
+.r:hover .mini rect:nth-child(odd),.r.open .mini rect:nth-child(odd){transform:scaleY(.6)}
+.r:hover .mini rect:nth-child(even),.r.open .mini rect:nth-child(even){transform:scaleY(1.25)}
+.pn{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.r.open .pn{grid-template-rows:1fr}
+.pn>div{overflow:hidden;visibility:hidden;transition:visibility .5s}
+.r.open .pn>div{visibility:visible}
+.pi{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px;padding:6px 0 32px 76px}
+.pi h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.pi ul{list-style:none}.pi li{padding:8px 0 8px 18px;position:relative;border-bottom:1px solid var(--line);font-size:15px}
+.pi li::before{content:"";position:absolute;left:0;top:19px;width:8px;height:1px;background:var(--accent)}
+.pi .note{grid-column:1/-1;font-size:14px;color:var(--muted)}
+.grp{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;margin:60px 0 16px}.grp:first-child{margin-top:0}.grp h3{font-size:clamp(20px,2vw,26px)}.grp span{font-size:14px;color:var(--muted)}
+.rows.tiles{display:grid;grid-template-columns:1fr 1fr;border-top:0;padding:0 1px 1px 0}
+.tiles .r{border:1px solid var(--ink);margin:0 -1px -1px 0}.tiles .r.open{grid-column:1/-1}
+.tiles .r>button{grid-template-columns:1fr 36px;grid-template-rows:auto 1fr auto;min-height:240px;padding:22px;gap:14px}
+.tiles .r>button .n{grid-area:1/1}.tiles .r>button .pl{grid-area:1/2}
+.tiles .r>button>span:nth-child(2){grid-area:2/1/3/3;align-self:end}
+.tiles .r>button .mini{grid-area:3/1/4/3;width:120px;height:60px}
+.tiles .t{font-size:clamp(24px,3vw,42px)}.tiles .pi{padding:6px 22px 28px}
+.fine{font-size:14px;color:var(--muted);margin-top:22px;max-width:70ch}
+.opts{background:var(--paper2)}
+.check{background:var(--paper2)}.chk,.fq{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,6vw,96px)}
+.qs{border:0}.q{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:center;padding:16px 0;border-top:1px solid var(--ink);cursor:pointer;font-size:clamp(17px,1.6vw,21px);letter-spacing:-.01em;color:var(--ink);font-weight:500;min-height:56px}
+.q:last-child{border-bottom:1px solid var(--ink)}
+.q input{width:22px;height:22px;min-height:22px;padding:0;border:0;background:none;accent-color:var(--accent)}
+.res{margin:22px 0;font-size:16px;min-height:3.2em;color:#2d3340;max-width:56ch}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--ink);color:var(--paper);padding:10px 14px}.skip:focus{left:8px}
+.scope{font-size:13px;font-weight:600;letter-spacing:.02em;margin-bottom:10px}
+.ns{list-style:none;border-top:1px solid var(--ink)}.ns li{padding:14px 0;border-bottom:1px solid var(--line);max-width:70ch}
+html:not(.js) .dtabs,html:not(.js) .app,html:not(.js) .check,html:not(.js) .plate,html:not(.js) figure img{display:none}
+.hint{font-size:14px;color:var(--muted);margin-bottom:18px;padding-left:12px;border-left:2px solid var(--accent)}
+.plate{padding:0}.plate figure{max-width:none;aspect-ratio:auto;height:clamp(220px,34vw,460px);background:var(--paper2)}
+.faq{background:var(--paper2)}
+details{border-top:1px solid var(--ink)}details:last-of-type{border-bottom:1px solid var(--ink)}
+summary{list-style:none;cursor:pointer;padding:22px 0;display:flex;justify-content:space-between;gap:20px;font-size:clamp(19px,2vw,26px);letter-spacing:-.03em;line-height:1.2;min-height:48px;font-weight:500}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";color:var(--accent);font-size:28px;line-height:1;transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 40px 24px 0;color:var(--muted);max-width:56ch}
+/* demos */
+.demo{background:var(--navy);color:var(--paper)}
+.demo .sub{color:rgba(244,241,234,.72)}
+.dtabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.dtabs button{min-height:46px;padding:0 20px;background:transparent;border:1px solid rgba(244,241,234,.5);cursor:pointer;font-weight:600;font-size:14px;color:var(--paper)}
+.dtabs button[aria-selected=true]{background:var(--paper);color:var(--navy)}
+.app{background:var(--paper);color:var(--ink);border:1px solid var(--paper)}
+.abar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px clamp(14px,2.5vw,28px);border-bottom:1px solid var(--line);font-size:13px}
+.abar b{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.abar span{color:var(--muted)}
+.abody{padding:clamp(14px,2.5vw,28px)}
+.kp{display:grid;grid-template-columns:repeat(3,1fr) 1.4fr;gap:12px;margin-bottom:22px}
+.k{border:1px solid var(--line);padding:12px 14px;background:#fff}
+.k small{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.k strong{font-size:clamp(26px,3vw,40px);font-weight:500;letter-spacing:-.04em;line-height:1.1}
+.week{display:flex;align-items:flex-end;gap:8px;height:48px;margin-top:6px}
+.week div{flex:1;text-align:center;font-size:10px;color:var(--muted)}
+.week i{display:block;background:var(--accent);width:100%;transition:height .5s var(--ease);min-height:3px;margin-bottom:3px}
+.pbar{height:6px;background:var(--paper2);margin:8px 0 0}.pbar i{display:block;height:100%;background:var(--accent);width:0;transition:width .6s var(--ease)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chips button{min-height:42px;padding:0 14px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.av{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:inline-grid;place-items:center;flex:none}
+.tk{display:grid;grid-template-columns:30px 1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line);animation:in .4s var(--ease) both}
+.tk .tt{font-size:15px}.tk .dd{font-size:13px;color:var(--muted);min-width:34px;text-align:right}
+.st{min-height:40px;min-width:112px;padding:0 12px;border:1px solid var(--ink);background:#fff;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;justify-content:center}
+.st i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)}
+.st.s1 i{background:var(--accent);border-color:var(--accent)}.st.s2{background:var(--ink);color:var(--paper)}.st.s2 i{background:var(--paper);border-color:var(--paper)}
+.tk.done .tt{text-decoration:line-through;color:var(--muted)}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.col{background:var(--paper2);padding:12px;min-height:220px}
+.col h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:12px;display:flex;justify-content:space-between}
+.pc{background:#fff;border:1px solid var(--line);padding:12px;margin-bottom:10px;font-size:14px;line-height:1.35;animation:in .4s var(--ease) both}
+.pc .m{display:flex;align-items:center;gap:8px;margin:8px 0 10px;font-size:12px;color:var(--muted)}
+.pc .ch{border:1px solid var(--line);padding:1px 7px}
+.pc .mv{display:flex;gap:6px}
+.pc button{min-height:38px;min-width:44px;padding:0 10px;background:none;border:1px solid var(--ink);cursor:pointer;font-size:13px;font-weight:600}
+.pc button:hover:not(:disabled){background:var(--ink);color:var(--paper)}.pc button:disabled{opacity:.3;cursor:default}
+/* process */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);position:relative;--p:0%}
+.steps::before{content:"";position:absolute;left:0;right:0;top:13px;height:2px;background:var(--line)}
+.steps::after{content:"";position:absolute;left:0;top:13px;height:2px;background:var(--accent);width:var(--p)}
+.steps li{padding:0 18px 0 0;position:relative;z-index:1}
+.mk{width:28px;height:28px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);display:grid;place-items:center;font-size:12px;font-weight:600;margin-bottom:28px;transition:background .4s,color .4s,border-color .4s}
+.steps li.on .mk{background:var(--accent);border-color:var(--accent);color:#fff}
+.steps h3{font-size:clamp(22px,2.2vw,30px);letter-spacing:-.035em;margin-bottom:10px;transition:opacity .4s}
+.steps p{font-size:15px;color:var(--muted);transition:opacity .4s}
+.js .steps li h3,.js .steps li p{opacity:.4}
+.steps li.on h3,.steps li.on p{opacity:1}
+/* founder */
+.founder{background:var(--paper);overflow:hidden}
+.fwrap{position:relative}
+.fh{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(30px,4.2vw,56px);letter-spacing:-.02em;color:var(--accent);max-width:none;margin-bottom:20px}
+.word{font-size:clamp(64px,17vw,260px);line-height:.82;letter-spacing:-.06em;font-weight:600;color:transparent;-webkit-text-stroke:1.5px var(--ink);white-space:nowrap;max-width:none;user-select:none;margin-bottom:-.12em;position:relative;z-index:2;pointer-events:none}
+.fgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,6vw,96px);align-items:end;position:relative;z-index:1}
+figure{position:relative;aspect-ratio:4/5;background:var(--navy);overflow:hidden;width:100%;max-width:600px}
+figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+figure .fb{position:absolute;inset:0;display:grid;place-items:center;color:var(--paper);font-size:clamp(64px,10vw,120px);font-weight:500;letter-spacing:-.06em}
+.js figure.rv{clip-path:inset(100% 0 0 0);transition:clip-path 1.3s var(--ease),opacity .3s}
+.js figure.rv.in{clip-path:inset(0)}
+.ftext{padding-bottom:12px}
+.ftext p{font-size:clamp(17px,1.5vw,20px);line-height:1.65;max-width:46ch;margin-bottom:20px}
+.ftext p.lead{font-size:clamp(22px,2.5vw,33px);line-height:1.28;letter-spacing:-.03em;max-width:30ch;margin-bottom:28px}
+
+/* contact */
+.contact{background:var(--navy);color:var(--paper)}
+.contact h2{font-size:clamp(40px,9vw,140px);max-width:12ch;letter-spacing:-.055em;line-height:.94}
+.contact h2 em{color:var(--hot)}
+.cg{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(28px,6vw,96px);margin-top:clamp(40px,6vw,88px)}
+.cg .intro{color:rgba(244,241,234,.8);max-width:34ch;margin-bottom:26px;font-size:clamp(17px,1.5vw,21px)}
+.clinks{display:grid;gap:8px;font-weight:500;margin-top:26px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px}
+fieldset{border:0;display:grid;gap:14px;align-content:start}
+legend{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--hot);margin-bottom:14px;padding:0}
+.full{grid-column:1/-1}
+label{font-size:13px;font-weight:600;color:rgba(244,241,234,.78);display:grid;gap:6px}
+input,select,textarea{background:rgba(244,241,234,.06);border:0;border-bottom:1px solid rgba(244,241,234,.5);color:var(--paper);font:400 16px var(--font);padding:11px 12px;min-height:48px;border-radius:0;width:100%}
+select option{color:#101523}textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.contact .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.contact .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.hp{position:absolute;left:-9999px}
+.small{font-size:14px;color:rgba(244,241,234,.65)}
+.ok{display:none;border:1px solid var(--accent);padding:28px}.ok.show{display:block}
+.err{display:none;color:#ffb199;font-size:14px}.err.show{display:block}
+[hidden]{display:none!important}
+footer{background:var(--navy);color:rgba(244,241,234,.7);padding:28px var(--pad) calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(244,241,234,.2);font-size:14px}
+footer .in{max-width:1360px;margin:auto;display:flex;flex-wrap:wrap;gap:18px 28px;justify-content:space-between;align-items:center}
+footer ul{display:flex;flex-wrap:wrap;gap:8px 24px;list-style:none}
+footer a{text-decoration:none}footer a:hover{color:#fff;text-decoration:underline}
+@media(min-width:901px) and (max-height:800px){.cap{display:none}.lede{margin:16px 0 20px}.eyebrow{margin-bottom:12px}}
+@media(max-width:900px){
+ .js .menu{display:block}
+ .js nav ul{position:absolute;inset:64px 0 auto 0;background:var(--paper);flex-direction:column;align-items:flex-start;gap:2px;padding:14px var(--pad) 28px;border-bottom:1px solid var(--line);display:none}
+ html:not(.js) nav ul li:not(:last-child){display:none}
+ .js nav ul.open{display:flex}
+ .js nav ul a:not(.btn){padding:8px 0;min-height:48px;display:flex;align-items:center;font-size:22px;letter-spacing:-.025em}
+ .js nav ul .btn{margin-top:14px;min-height:50px;padding:0 26px}
+ .story{height:auto}
+ .pin{position:static;height:auto;grid-template-columns:1fr;padding-top:96px;padding-bottom:56px}
+ .stage{max-height:none;aspect-ratio:1/1.05}
+ .cap{display:none}
+ .mini{display:none}
+ .r>button,.r>button.nm{grid-template-columns:36px 1fr 32px;gap:12px}
+ .pi{grid-template-columns:1fr;padding-left:48px}
+ .kp{grid-template-columns:1fr 1fr}.kp .k:last-child{grid-column:1/-1}
+ .board{grid-template-columns:1fr 1fr}
+ .steps{grid-template-columns:1fr;gap:28px;padding-left:0}
+ .steps::before,.steps::after{left:13px;right:auto;top:0;bottom:0;width:2px;height:auto}
+ .steps::after{height:var(--p);bottom:auto}
+ .steps li{display:grid;grid-template-columns:44px 1fr;padding:0}.steps li>*{grid-column:2}.mk{grid-column:1!important;grid-row:1/span 2;margin:0}
+ .fgrid,.cg,.chk,.fq{grid-template-columns:1fr}
+ .word{font-size:clamp(56px,19vw,140px)}
+}
+@media(max-width:600px){
+ .rows.tiles{grid-template-columns:1fr}.tiles .r>button{min-height:150px}
+ .board{grid-template-columns:1fr}.col{min-height:0}
+ form{grid-template-columns:1fr}
+ .tk{grid-template-columns:28px 1fr auto;gap:8px 12px}.tk .dd{grid-column:2;text-align:left;grid-row:2}.tk .st{grid-row:1/span 2;grid-column:3}
+ .pi{padding-left:0}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .story{height:auto}.pin{position:static;height:auto;padding-top:96px;padding-bottom:56px}
+ .js .rv,.js figure.rv{opacity:1!important;transform:none!important;clip-path:none!important}
 }
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
+<a class="skip" href="#main">Skip to content</a>
+<header id="top"><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="#top">The Operations Desk<i>.</i></a>
+  <button class="menu" aria-expanded="false" aria-controls="nav-list">Menu</button>
+  <ul id="nav-list">
+    <li><a href="#solutions">Solutions</a></li><li><a href="#demo">Demos</a></li><li><a href="#how">How we work</a></li><li><a href="#options">Options</a></li><li><a href="#about">About</a></li>
+    <li><a class="btn" href="#contact">Book a call</a></li>
+  </ul></nav></div></header>
 
-<nav id="nav">
-  <a href="#" class="logo">
-    <div class="logo-mark"></div>
-    <span class="logo-text">The Operations Desk</span>
-  </a>
-  <a href="#contact" class="nav-cta">Work With Us</a>
-</nav>
-
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-tag">Operational Architecture</div>
-  <h1 class="hero-h1">Your business is only as strong<br><em>as what's running underneath it.</em></h1>
-  <p class="hero-sub">We build the infrastructure that lets your business run properly. Not advice and leave. We come in, build it, and hand it over ready to use.</p>
-  <div class="hero-actions">
-    <a href="#contact" class="btn-primary">Start a Conversation &#8599;</a>
-    <a href="#services" class="btn-ghost">See what we do <span>&#8594;</span></a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section class="services" id="services">
-  <div class="sec-tag">What We Build</div>
-  <h2 class="sec-title">We don't organise your business.<br><em>We architect it.</em></h2>
-  <div class="services-grid">
-    <div class="svc">
-      <div class="svc-num">01</div>
-      <div class="svc-name">Business Operating System</div>
-      <div class="svc-desc">Your company's complete headquarters. Every team, every function, every workflow in one place. Built in Notion. Built to scale with you.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-num">02</div>
-      <div class="svc-name">Standard Operating Procedures</div>
-      <div class="svc-desc">Every critical function your business performs, documented with clarity. Your team stops guessing. Your business stops depending on memory.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-num">03</div>
-      <div class="svc-name">Team Structure &amp; Workflow Design</div>
-      <div class="svc-desc">Roles defined. Responsibilities clear. We redesign how your team operates so execution stops requiring your personal supervision.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-num">04</div>
-      <div class="svc-name">Operational Strategy</div>
-      <div class="svc-desc">For founders thinking about the bigger picture. Not just fixing what's broken today, but building a structure that can hold everything you're building toward.</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section class="packages" id="packages">
-  <div class="sec-tag">Ways to Work Together</div>
-  <h2 class="sec-title">Three ways in.<br><em>One outcome.</em></h2>
-  <div class="pkg-grid">
-    <div class="pkg">
-      <div class="pkg-num">01</div>
-      <div class="pkg-name">The Diagnostic</div>
-      <div class="pkg-sub">Clarity before commitment</div>
-      <div class="pkg-line"></div>
-      <ul class="pkg-list">
-        <li class="pkg-item">Full operational audit</li>
-        <li class="pkg-item">Gap and friction analysis</li>
-        <li class="pkg-item">Written recommendations</li>
-        <li class="pkg-item">Priority action roadmap</li>
-      </ul>
-      <a href="#contact" class="pkg-cta">Get Started</a>
-    </div>
-    <div class="pkg featured">
-      <div class="pkg-badge">Most Popular</div>
-      <div class="pkg-num">02</div>
-      <div class="pkg-name">The Full Build</div>
-      <div class="pkg-sub">The complete transformation</div>
-      <div class="pkg-line"></div>
-      <ul class="pkg-list">
-        <li class="pkg-item">Everything in the Diagnostic</li>
-        <li class="pkg-item">Custom Business OS in Notion</li>
-        <li class="pkg-item">SOPs for all critical workflows</li>
-        <li class="pkg-item">Team structure and role design</li>
-        <li class="pkg-item">Full handover and team walkthrough</li>
-      </ul>
-      <a href="#contact" class="pkg-cta">Get Started</a>
-    </div>
-    <div class="pkg">
-      <div class="pkg-num">03</div>
-      <div class="pkg-name">The Retainer</div>
-      <div class="pkg-sub">Your permanent ops partner</div>
-      <div class="pkg-line"></div>
-      <ul class="pkg-list">
-        <li class="pkg-item">Ongoing system management</li>
-        <li class="pkg-item">Monthly operational reviews</li>
-        <li class="pkg-item">New SOPs as your business evolves</li>
-        <li class="pkg-item">Dedicated operational support</li>
-      </ul>
-      <a href="#contact" class="pkg-cta">Get Started</a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <div class="sec-tag">Let's Talk</div>
-      <h2 class="contact-title">You don't need to have it<br><em>all figured out first.</em></h2>
-      <p class="contact-body">That is what the first conversation is for. Tell us where you are and we will take it from there.</p>
-      <div class="contact-links">
-        <a href="javascript:void(0)" onclick="var a='giftieobeten';var b='gmail.com';window.location.href='mailto:'+a+'@'+b;" class="contact-link">
-          <div class="cl-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#EA4335" stroke-width="1.5"/>
-              <path d="M22 6l-10 7L2 6" stroke="#EA4335" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span>giftieobeten&#64;gmail.com</span>
-        </a>
-        <a href="https://www.instagram.com/theoperationsdesk" target="_blank" class="contact-link">
-          <div class="cl-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig)" stroke-width="1.5"/>
-              <circle cx="12" cy="12" r="5" stroke="url(#ig)" stroke-width="1.5"/>
-              <circle cx="17.5" cy="6.5" r="1" fill="url(#ig)"/>
-              <defs>
-                <linearGradient id="ig" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#f09433"/>
-                  <stop offset="50%" stop-color="#dc2743"/>
-                  <stop offset="100%" stop-color="#bc1888"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          @theoperationsdesk
-        </a>
-      </div>
-    </div>
+<main id="main">
+<div class="story" id="story">
+  <div class="pin">
     <div>
-      <div class="form-wrap">
-        <div class="form-title">Send a Message</div>
-        <div class="form-sub">We respond to every enquiry within 24 hours.</div>
-        <div class="form-body" id="formBody">
-          <form id="enquiryForm">
-            <div class="form-row">
-              <div class="fg"><label>Your Name</label><input type="text" name="name" placeholder="Full name" required></div>
-              <div class="fg"><label>Email</label><input type="email" name="email" placeholder="you@business.com" required></div>
-            </div>
-            <div class="fg">
-              <label>Business Stage</label>
-              <select name="business_stage" required>
-                <option value="" disabled selected>Where are you right now?</option>
-                <option>Just starting out (under 1 year)</option>
-                <option>Building and growing (1 to 3 years)</option>
-                <option>Established and scaling (3 years and above)</option>
-                <option>Not sure, just exploring</option>
-              </select>
-            </div>
-            <div class="fg">
-              <label>Service Interest</label>
-              <select name="service_interest" required>
-                <option value="" disabled selected>What interests you?</option>
-                <option>The Diagnostic</option>
-                <option>The Full Build</option>
-                <option>The Retainer</option>
-                <option>Not sure yet, just want to talk</option>
-              </select>
-            </div>
-            <div class="fg"><label>Tell Us About Your Business</label><textarea name="message" placeholder="What is going on in your business right now?" required></textarea></div>
-            <button type="button" onclick="submitForm()" class="submit" id="submitBtn">Send Message &#8599;</button>
-          </form>
-          <div class="or-row">or</div>
-          <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn">&#128197;&nbsp; Book a 30-min Discovery Call</a>
-          <p class="form-note">No pressure. No pushy sales. Just an honest conversation.</p>
+      <p class="eyebrow">Operations and systems for business owners</p>
+      <h1>Most business problems are <em>structural.</em></h1>
+      <p class="lede">We help business owners improve how their businesses run: the structure, processes, workflows and digital systems underneath. We find what is not working, then build what fits.</p>
+      <div class="cta">
+        <a class="btn" href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" rel="noopener">Book a discovery call ↗</a>
+        <a class="btn ghost" href="#solutions">Explore solutions</a>
+      </div>
+      <p class="cap" id="cap" aria-live="off"></p>
+    </div>
+    <div class="stagewrap">
+      <div class="stage" id="stage" role="img" aria-label="Illustration: scattered pieces of business work, such as client requests, tasks and reports, arranging themselves into three connected lanes: Intake, Work and Output.">
+        <span class="band" style="left:1.5%"></span><span class="band" style="left:34.5%"></span><span class="band" style="left:67.5%"></span>
+        <svg class="tangle" id="tangle" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M70 14L22 26L82 44L38 46L15 66L60 68L30 86L78 86L48 13L70 14"/></svg>
+        <svg class="lanes" id="lanes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="30" y1="22" x2="36" y2="22"/><line x1="64" y1="22" x2="70" y2="22"/>
+          <line x1="30" y1="50" x2="36" y2="50"/><line x1="64" y1="50" x2="70" y2="50"/>
+          <line x1="30" y1="78" x2="36" y2="78"/><line x1="64" y1="78" x2="70" y2="78"/>
+        </svg>
+        <span class="lbl" style="left:17%">Intake</span><span class="lbl" style="left:50%">Work</span><span class="lbl" style="left:83%">Output</span>
+        <div class="flat" aria-hidden="true">
+          <div class="fl"><b>Intake</b><div class="chip resolved">Client request<span class="tg">Logged</span><b class="ow">A</b></div><div class="chip resolved">Message<span class="tg">Routed</span><b class="ow">A</b></div><div class="chip resolved">Deadline<span class="tg">Dated</span><b class="ow">T</b></div></div>
+          <div class="fl"><b>Work</b><div class="chip resolved">Task<span class="tg">Assigned</span><b class="ow">T</b></div><div class="chip resolved">Owner<span class="tg">Named</span><b class="ow">Z</b></div><div class="chip resolved">Document<span class="tg">One home</span><b class="ow">Z</b></div></div>
+          <div class="fl"><b>Output</b><div class="chip resolved">Report<span class="tg">Ready</span><b class="ow">A</b></div><div class="chip resolved">Handover<span class="tg">Written down</span><b class="ow">T</b></div><div class="chip resolved">Invoice<span class="tg">Tracked</span><b class="ow">Z</b></div></div>
         </div>
-        <div class="form-success" id="formSuccess">
-          <div class="fs-icon">&#10003;</div>
-          <div class="fs-title" id="fsTitle">Message received.</div>
-          <div class="fs-body" id="fsBody">We will be in touch within 24 hours.</div>
-          <br>
-          <a href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" class="cal-btn" style="margin-top:8px">&#128197;&nbsp; Book a Discovery Call</a>
+      </div>
+      <p class="illus"><span>Items with no owner: <b id="own">0</b></span><span>Illustration, not a real business</span></p>
+    </div>
+  </div>
+</div>
+
+<section id="solutions" aria-labelledby="h-sol">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow">Solutions</p><h2 id="h-sol">What would you like to <em>improve?</em></h2>
+      <p class="sub">Pick an area to see the problem it solves and what we could build. Most of this is custom work, shaped after we understand your business, tools and budget.</p></div>
+    <div id="sol"></div>
+    <noscript><ul class="ns"><li><b>Business Command Centre.</b> A central workspace for priorities, projects, tasks and performance.</li><li><b>Content Workspace.</b> A structured home for planning, approving and publishing content.</li><li><b>Business Reporting.</b> Systems that turn the information you already have into useful reports.</li><li><b>Websites and Digital Presence.</b> Websites that explain what you offer and guide people to the next step.</li><li><b>Team Operations.</b> Documented responsibilities, procedures and handovers for your team.</li><li><b>Client Management.</b> Organised enquiries, client records, onboarding and follow-ups.</li><li><b>Finance Tracking.</b> Tidy records of income, expenses, budgets and invoices. These support your record-keeping and do not replace accounting software or financial advice.</li><li><b>Business Knowledge Hub.</b> One place for documents, policies, training and company information.</li><li><b>Content Production Workflows.</b> Practical workflows for writing, design, image and video production.</li><li><b>Workflow Automation.</b> Custom workflows that cut repetitive tasks and move information between tools.</li></ul></noscript>
+    <p class="fine">These are examples, not ready-made products. The right solution depends on what you already use and what you need.</p>
+  </div>
+</section>
+
+<section class="check" id="check" aria-labelledby="h-chk">
+  <div class="wrap chk">
+    <div class="rv"><p class="eyebrow">A quick self-check</p><h2 id="h-chk">Does any of this sound <em>familiar?</em></h2>
+      <p class="sub">Tick what applies. It points to where a conversation could start. It is not an audit, and nothing is sent anywhere unless you choose to take it to the enquiry form.</p></div>
+    <div>
+      <fieldset class="qs"><legend class="sr">Things that may sound familiar</legend><div id="qs"></div></fieldset>
+      <p class="res" id="res" aria-live="polite"></p>
+      <button class="btn" id="chkgo" type="button" hidden>Take this to the enquiry form</button>
+    </div>
+  </div>
+</section>
+
+<section class="demo" id="demo" aria-labelledby="h-demo">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow" style="color:var(--hot)">Demonstrations</p><h2 id="h-demo">Two systems, <em>up close.</em></h2>
+      <p class="sub">Simplified samples with fictional data. Click the statuses, filters and arrows. They show the idea. They are not live dashboards or connected to any real system.</p></div>
+    <noscript><p class="hint" style="color:rgba(244,241,234,.85)">The demonstrations need JavaScript. The Business Command Centre and Content Workspace are described under Solutions.</p></noscript>
+    <div class="dtabs" role="tablist" aria-label="Demonstrations">
+      <button role="tab" id="t0" aria-selected="true" tabindex="0" aria-controls="p0">Business Command Centre</button>
+      <button role="tab" id="t1" aria-selected="false" tabindex="-1" aria-controls="p1">Content Workspace</button>
+    </div>
+    <div class="app" id="p0" role="tabpanel" aria-labelledby="t0">
+      <div class="abar"><b>Kora Studio: this week</b><span>Demonstration with fictional data</span></div>
+      <div class="abody">
+        <p class="hint">Try it: click a status to move a task forward, or filter by person.</p>
+        <p class="scope" id="scope" aria-live="polite"></p>
+        <div class="kp">
+          <div class="k"><small>To do</small><strong id="k0">0</strong></div>
+          <div class="k"><small>In progress</small><strong id="k1">0</strong></div>
+          <div class="k"><small>Done</small><strong id="k2">0</strong><div class="pbar"><i id="kb"></i></div></div>
+          <div class="k"><small>Open by deadline</small><div class="week" id="week"></div></div>
         </div>
+        <div class="chips" role="group" aria-label="Filter by owner" id="chips"></div>
+        <div id="tasks"></div>
+      </div>
+    </div>
+    <div class="app" id="p1" role="tabpanel" aria-labelledby="t1" hidden>
+      <div class="abar"><b>Kora Studio: content board</b><span>Demonstration with fictional data</span></div>
+      <div class="abody"><p class="hint">Try it: use the arrows to move a post between stages.</p><div class="board" id="board"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="plate" id="plate"><figure class="rv"><img data-src="images/plate-structure.jpg" alt="" width="1600" height="640" loading="lazy"></figure></div>
+
+<section id="how" aria-labelledby="h-how">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow">How we work</p><h2 id="h-how">Five steps, <em>in this order.</em></h2>
+      <p class="sub">Booking a discovery call does not commit you to buying anything.</p></div>
+    <ol class="steps" id="steps">
+      <li><span class="mk">1</span><h3>Initial enquiry</h3><p>You tell us about your business, its stage, how long it has operated and what you need help with.</p></li>
+      <li><span class="mk">2</span><h3>Discovery conversation</h3><p>A 30-minute conversation to understand your business, current challenges and the outcome you want. It is not an audit, and there is no obligation to buy.</p></li>
+      <li><span class="mk">3</span><h3>Assessment and proposal</h3><p>We summarise what we understand, recommend an approach (it may be one of the options below), define the scope and send a fee proposal.</p></li>
+      <li><span class="mk">4</span><h3>Build and implementation</h3><p>Once you accept the proposal, we develop and implement the agreed solution.</p></li>
+      <li><span class="mk">5</span><h3>Training and handover</h3><p>We help the right people learn the system and hand over the agreed documentation and resources.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="opts" id="options" aria-labelledby="h-opt">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow">Ways to work with us</p><h2 id="h-opt">Three ways <em>in.</em></h2>
+      <p class="sub">The solutions above are what we can build. These are how you work with us. Scope and fees are proposed after the discovery process, so there are no prices here.</p></div>
+    <div class="rows" id="opt"></div>
+    <noscript><ul class="ns"><li><b>The Diagnostic.</b> Review of how your business runs today, gap and friction analysis, written recommendations and a priority action roadmap.</li><li><b>The Full Build.</b> Everything in the Diagnostic, a Business OS in Notion where it fits, SOPs for critical workflows, team structure and role design, and a handover and team walkthrough.</li><li><b>The Retainer.</b> Ongoing system management, monthly operational reviews, new SOPs as the business evolves, and dedicated operational support.</li><li>Each is separately scoped. We propose the scope and fee after the discovery conversation.</li></ul></noscript>
+  </div>
+</section>
+
+<section class="founder" id="about" aria-labelledby="h-about">
+  <div class="wrap fwrap">
+    <h2 id="h-about" class="fh">A little about me</h2>
+    <p class="word" aria-hidden="true">Giftie Obeten</p>
+    <div class="fgrid">
+      <!-- Founder photo: add your image as images/founder.jpg in the repo, or change data-src below -->
+      <figure class="rv"><div class="fb" aria-hidden="true">GO</div><img id="fphoto" data-src="images/founder.jpg" alt="Giftie Obeten, founder of The Operations Desk" width="560" height="700" loading="lazy"></figure>
+      <div class="ftext rv">
+        <p class="lead">I’m Giftie Obeten. I started my career as a business analyst, but my interest in business went beyond understanding how things worked on paper. I wanted to be involved in building things, solving problems, and helping businesses grow.</p>
+        <p>That interest led me into operations, where I found myself drawn to the work that happens behind the scenes: how people work together, how decisions become action, and how the right systems can make running a business easier.</p>
+        <p>That’s a big part of why I started The Operations Desk. I believe businesses deserve more than good ideas and hard-working people. They need the right structure to bring everything together.</p>
       </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <a href="#" class="footer-logo">
-    <div class="logo-mark"></div>
-    <span class="logo-text">The Operations Desk</span>
-  </a>
-  <div class="footer-right">
-    <a href="#services">Services</a>
-    <a href="#packages">Packages</a>
-    <a href="#contact">Contact</a>
-    <a href="https://www.instagram.com/theoperationsdesk" target="_blank">Instagram</a>
+<section class="faq" id="faq" aria-labelledby="h-faq">
+  <div class="wrap fq">
+    <div class="rv"><p class="eyebrow">Questions</p><h2 id="h-faq">Fair things <em>to ask.</em></h2></div>
+    <div class="rv">
+      <details><summary>Do I need to know what is wrong before we talk?</summary><p>No. You don't need it all figured out. Tell us where you are and what keeps going wrong, and we take it from there.</p></details>
+      <details><summary>Do I have to buy something after the discovery call?</summary><p>No. The call is a 30-minute conversation to understand your business. If we go further, we send an assessment and a fee proposal, and you decide whether to accept it.</p></details>
+      <details><summary>What is the difference between the discovery call and the Diagnostic?</summary><p>The discovery call is a 30-minute conversation where we learn about your business and what you want to change. The Diagnostic is one of the three ways to work with us: a review of how your business runs today, with a gap and friction analysis, written recommendations and a priority action roadmap. We propose its scope and fee after the call, and you decide whether to go ahead.</p></details>
+      <details><summary>Do you only give advice?</summary><p>No. We build the systems and hand them over, with training and documentation for the people who will use them.</p></details>
+      <details><summary>What will it cost?</summary><p>It depends on the scope, so we don't publish prices. After the discovery conversation we propose a scope and a fee.</p></details>
+      <details><summary>Which tools do you use?</summary><p>That depends on your business and what you already use. It can include no-code tools, automation platforms and conventional software. The Business OS is built in Notion where it fits.</p></details>
+      <details><summary>How quickly will you reply?</summary><p>We respond to every enquiry within 24 hours of receiving it.</p></details>
+    </div>
   </div>
-  <div class="footer-copy">&#169; 2026 The Operations Desk</div>
-</footer>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="h-c">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--hot)">Start here</p>
+    <h2 id="h-c" class="rv">Tell us how your business <em>runs today.</em></h2>
+    <div class="cg">
+      <div>
+        <p class="intro">You don't need it all figured out. Send a short enquiry, or go straight to booking a call.</p>
+        <a class="btn" href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" rel="noopener">Book a 30-min discovery call ↗</a>
+        <div class="clinks"><a href="mailto:giftieobeten@gmail.com">giftieobeten@gmail.com</a><a href="https://www.instagram.com/theoperationsdesk" target="_blank" rel="noopener">@theoperationsdesk</a></div>
+      </div>
+      <div>
+        <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="form" aria-describedby="privacy">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <fieldset><legend>You</legend>
+            <label>Your name<input name="name" required autocomplete="name"></label>
+            <label>Email<input type="email" name="email" required autocomplete="email"></label>
+          </fieldset>
+          <fieldset><legend>The business</legend>
+            <label>Business name<input name="business" required autocomplete="organization"></label>
+            <label>What does it do?<input name="nature" required placeholder="e.g. catering, retail, consulting"></label>
+          </fieldset>
+          <fieldset><legend>Where it is</legend>
+            <label>Business stage<select name="stage" required><option value="">Choose one</option><option>Just starting out</option><option>Building and growing</option><option>Established and scaling</option><option>Not sure</option></select></label>
+            <label>How long has it operated?<select name="duration" required><option value="">Choose one</option><option>Not launched yet</option><option>Under 1 year</option><option>1 to 3 years</option><option>3 years or more</option></select></label>
+          </fieldset>
+          <fieldset><legend>What you need</legend>
+            <label>What would you like to improve?<select name="interest" id="interest" required><option value="">Choose one</option><option>Business Command Centre</option><option>Content Workspace</option><option>Business Reporting</option><option>Websites and Digital Presence</option><option>Team Operations</option><option>Client Management</option><option>Finance Tracking</option><option>Business Knowledge Hub</option><option>Content Production Workflows</option><option>Workflow Automation</option><option>Not sure yet</option><option>Something else</option></select></label>
+            <label id="otherwrap" hidden>What do you have in mind?<input name="interest_other" id="other" disabled></label>
+          </fieldset>
+          <label class="full">The main challenge or outcome you want<textarea name="challenge" required></textarea></label>
+          <div class="full"><button class="btn" type="submit">Send enquiry ↗</button>
+            <p class="err" id="err" role="alert" style="margin-top:12px">That didn't send. Please email giftieobeten@gmail.com or book a call instead.</p>
+            <p class="small" style="margin-top:12px">We respond to every enquiry within 24 hours of receiving it.</p>
+            <p class="small" id="privacy" style="margin-top:8px">The information you submit here is used to respond to your enquiry.</p></div>
+        </form>
+        <div class="ok" id="ok" role="status" tabindex="-1"><h3>Enquiry received.</h3><p class="small" style="margin:8px 0 18px">We respond to every enquiry within 24 hours of receiving it. You can also book a call now.</p><a class="btn" href="https://calendly.com/giftieobeten/discovery-call-with-the-operations-desk" target="_blank" rel="noopener">Book a discovery call ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="in">
+  <a class="logo" href="#top" style="color:var(--paper)">The Operations Desk<i>.</i></a>
+  <ul><li><a href="#solutions">Solutions</a></li><li><a href="#options">Options</a></li><li><a href="#contact">Contact</a></li><li><a href="https://www.instagram.com/theoperationsdesk" target="_blank" rel="noopener">Instagram</a></li></ul>
+  <span>© 2026 The Operations Desk</span>
+</div></footer>
 
 <script>
-var nav = document.getElementById('nav');
-window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 50); });
+(function(){
+var $=function(s,c){return(c||document).querySelector(s)},$$=function(s,c){return[].slice.call((c||document).querySelectorAll(s))};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var cl=function(v){return Math.min(1,Math.max(0,v))},sm=function(a,b,v){var t=cl((v-a)/(b-a));return t*t*(3-2*t)};
+var mobile=matchMedia('(max-width:900px)'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
 
-async function submitForm() {
-  var form = document.getElementById('enquiryForm');
-  var btn  = document.getElementById('submitBtn');
-  var n = form.querySelector('input[name="name"]').value.trim();
-  var e = form.querySelector('input[name="email"]').value.trim();
-  var s = form.querySelector('select[name="business_stage"]').value.trim();
-  var i = form.querySelector('select[name="service_interest"]').value.trim();
-  var m = form.querySelector('textarea[name="message"]').value.trim();
-  if (!n){ form.querySelector('input[name="name"]').focus(); return; }
-  if (!e){ form.querySelector('input[name="email"]').focus(); return; }
-  if (!s){ form.querySelector('select[name="business_stage"]').focus(); return; }
-  if (!i){ form.querySelector('select[name="service_interest"]').focus(); return; }
-  if (!m){ form.querySelector('textarea[name="message"]').focus(); return; }
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-  try {
-    var r = await fetch('https://formspree.io/f/maqpgdnj', {
-      method:'POST',
-      body: JSON.stringify({name:n,email:e,business_stage:s,service_interest:i,message:m}),
-      headers:{'Accept':'application/json','Content-Type':'application/json'}
-    });
-    if(r.ok){
-      var first = n.split(' ')[0];
-      var clean = first.charAt(0).toUpperCase()+first.slice(1).toLowerCase();
-      document.getElementById('fsTitle').textContent = 'Thank you, '+clean+'.';
-      document.getElementById('fsBody').textContent = clean+', we will review your message and be in touch within 24 hours.';
-      document.getElementById('formBody').classList.add('hide');
-      document.getElementById('formSuccess').classList.add('show');
-    } else {
-      btn.textContent = 'Send Message ↗';
-      btn.disabled = false;
-      alert('Something went wrong. Please try again or email us directly.');
-    }
-  } catch(err){
-    btn.textContent = 'Send Message ↗';
-    btn.disabled = false;
-    alert('Something went wrong. Please try again or email us directly.');
-  }
+/* header, menu, reveal */
+var hd=$('header'),mb=$('.menu'),nl=$('#nav-list');
+function setMenu(o){nl.classList.toggle('open',o);mb.setAttribute('aria-expanded',o?'true':'false');mb.textContent=o?'Close':'Menu'}
+mb.addEventListener('click',function(){setMenu(!nl.classList.contains('open'))});
+$$('a',nl).forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nl.classList.contains('open')){setMenu(false);mb.focus()}});
+document.addEventListener('click',function(e){if(nl.classList.contains('open')&&!hd.contains(e.target))setMenu(false)});
+addEventListener('resize',function(){if(innerWidth>900)setMenu(false)});
+var rv=$$('.rv');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});rv.forEach(function(x){io.observe(x)})}
+else rv.forEach(function(x){x.classList.add('in')});
+
+/* hero story: scattered work becomes a system */
+var stage=$('#stage'),lanes=$('#lanes'),tgl=$('#tangle'),own=$('#own'),OW=['A','A','T','T','Z','Z','A','T','Z'],lbls=$$('.lbl,.band',stage),cap=$('#cap');
+var C=[['Client request','Unanswered','Logged',70,14,-8,0,0],['Message','Buried','Routed',22,26,6,0,1],['Deadline','Missed?','Dated',82,44,10,0,2],
+['Task','Unclear','Assigned',38,46,-5,1,0],['Owner','Nobody','Named',15,66,-12,1,1],['Document','v3 final final','One home',60,68,7,1,2],
+['Report','Late','Ready',30,86,9,2,0],['Handover','Missing','Written down',78,86,-6,2,1],['Invoice','Unsent','Tracked',48,13,4,2,2]];
+var chips=C.map(function(c,i){var d=el('div','chip');d.setAttribute('aria-hidden','true');d.appendChild(el('span',null,c[0]));var t=el('span','tg',c[1]);d.appendChild(t);var ow=el('b','ow','?');d.appendChild(ow);stage.appendChild(d);
+ return{d:d,t:t,ow:ow,c:c,ex:[17,50,83][c[6]],ey:[22,50,78][c[7]]}});
+var caps=['Today: requests, tasks and deadlines live in inboxes and memory.','Step one: every piece gets a place and a named owner.','Then work moves from intake to output in a line you can see.'];
+function applyP(p){var n=0;
+ chips.forEach(function(k,i){var q=cl((p-i*.035)/.65),e=q*q*(3-2*q),c=k.c,o=p>.42+i*.04;n+=o?0:1;
+  k.d.style.left=(c[3]+(k.ex-c[3])*e)+'%';k.d.style.top=(c[4]+(k.ey-c[4])*e)+'%';
+  k.d.style.transform='translate(-50%,-50%) rotate('+(c[5]*(1-e))+'deg)';
+  k.d.classList.toggle('resolved',o);k.t.textContent=o?c[2]:c[1];k.ow.textContent=o?OW[i]:'?'});
+ own.textContent=n;tgl.style.opacity=1-sm(.15,.55,p);var a=sm(.5,.85,p);lanes.style.opacity=a;lbls.forEach(function(l){l.style.opacity=a});
+ cap.textContent=caps[p<.3?0:p<.65?1:2];
 }
-</script>
+function onScroll(){hd.classList.toggle('solid',scrollY>20);if(mobile.matches||reduce.matches)return;
+ var s=$('#story'),r=s.getBoundingClientRect(),m=s.offsetHeight-innerHeight;applyP(cl(-r.top/m))}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);
+if(reduce.matches)applyP(1);
+else if(mobile.matches){applyP(0);chips.forEach(function(k,i){k.d.style.transitionDelay=(i*70)+'ms'});setTimeout(function(){stage.classList.add('tx');applyP(1)},900)}
+else onScroll();
+stage.classList.add('live');
 
+/* shared expandable rows */
+function mini(k){var s='';
+ if(k==='bars')[18,30,22,38,26].forEach(function(h,i){s+='<rect x="'+(8+i*17)+'" y="'+(44-h)+'" width="10" height="'+h+'"/>'});
+ else if(k==='grid')for(var r=0;r<2;r++)for(var c=0;c<3;c++)s+='<rect x="'+(6+c*30)+'" y="'+(6+r*20)+'" width="24" height="14"/>';
+ else if(k==='nodes')s='<path d="M14 24L48 10L82 24L48 38z"/><circle cx="14" cy="24" r="4"/><circle cx="48" cy="10" r="4"/><circle cx="82" cy="24" r="4"/><circle cx="48" cy="38" r="4"/>';
+ else[[8,70],[8,50],[8,82],[8,40]].forEach(function(l,i){s+='<path d="M'+l[0]+' '+(8+i*11)+'H'+l[1]+'"/>'});
+ return'<svg class="mini" viewBox="0 0 96 48" aria-hidden="true">'+s+'</svg>'}
+function rows(host,data,pre,off){
+ data.forEach(function(s,i){
+  var r=el('div','r'),b=el('button');b.type='button';b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls',pre+i);if(!s.mini)b.className='nm';
+  b.innerHTML='<span class="n"></span><span><span class="t"></span><span class="d"></span></span>'+(s.mini?mini(s.mini):'')+'<span class="pl" aria-hidden="true">+</span>';
+  var nn=i+(off||0)+1;$('.n',b).textContent=(nn<10?'0':'')+nn;$('.t',b).textContent=s.t;$('.d',b).textContent=s.d;
+  var p=el('div','pn'),w=el('div'),pi=el('div','pi');p.id=pre+i;
+  s.cols.forEach(function(cs){var d=el('div');d.appendChild(el('h4',null,cs[0]));if(typeof cs[1]==='string')d.appendChild(el('p',null,cs[1]));else{var u=el('ul');cs[1].forEach(function(x){u.appendChild(el('li',null,x))});d.appendChild(u)}pi.appendChild(d)});
+  if(s.note)pi.appendChild(el('p','note',s.note));
+  w.appendChild(pi);p.appendChild(w);r.appendChild(b);r.appendChild(p);host.appendChild(r);
+  b.addEventListener('click',function(){var o=!r.classList.contains('open');
+   $$('.r.open',host).forEach(function(x){x.classList.remove('open');$('button',x).setAttribute('aria-expanded','false')});
+   if(o){r.classList.add('open');b.setAttribute('aria-expanded','true')}});
+ })}
+var S=[
+['Business Command Centre','A central workspace for priorities, projects, tasks and performance.','grid','Owners juggling updates across chats, notes and spreadsheets, with no single view of what is happening.',['A priorities and projects view','Task tracking by person or area','A weekly performance summary'],''],
+['Content Workspace','A structured home for planning, approving and publishing content.','grid','Content that lives in scattered files, with unclear approvals and missed posting dates.',['Content calendar and briefs','Captions, assets and approvals','Publishing schedule and tracking'],''],
+['Business Reporting','Systems that turn the information you already have into useful reports.','bars','Reports built by hand every month, or numbers nobody trusts or reads.',['A monthly summary report','A simple performance overview','Tidier sales or activity records'],'How automated this can be depends on your data sources and the tools you use.'],
+['Websites and Digital Presence','Websites that explain what you offer and guide people to the next step.','lines','A website that looks fine but does not explain the offer or bring in enquiries.',['A clear business website','Enquiry and booking forms','A simple page structure for your offer'],''],
+['Team Operations','Documented responsibilities, procedures and handovers for your team.','nodes','Work that depends on one person remembering how it is done.',['Role and responsibility maps','Step-by-step procedures','Recurring task and deadline trackers','Handover checklists'],''],
+['Client Management','Organised enquiries, client records, onboarding and follow-ups.','lines','Leads that go cold and client details spread across inboxes and DMs.',['An enquiry tracker','Client records in one place','Onboarding and follow-up workflows'],''],
+['Finance Tracking','Tidy records of income, expenses, budgets and invoices.','bars','Money information that is hard to find or review.',['Income and expense tracker','Budget overview','Invoice tracking'],'These systems support your record-keeping. They do not replace accounting software, an accountant or financial advice.'],
+['Business Knowledge Hub','One place for documents, policies, training and company information.','lines','New people asking the same questions, and files nobody can find.',['An internal wiki','Policies and procedures library','Training and onboarding resources'],''],
+['Content Production Workflows','Practical workflows for writing, design, image and video production.','grid','Creating content takes longer than it should because every piece starts from scratch.',['Briefing and review workflows','Templates for repeat formats','Asset organisation'],'Image and video support depends on which tools suit the work.'],
+['Workflow Automation','Custom workflows that cut repetitive tasks and move information between tools.','nodes','Hours spent copying information, chasing updates and sorting incoming requests.',['Moving information between tools','Sorting incoming requests','Preparing routine summaries'],'Built case by case. Not every task can or should be automated.']];
+var G=[['Run the business','The structure behind the work.','rows',[0,4,7,6]],['Win and serve clients','How people find you and what they see.','tiles',[3,5,1,8]],['See clearly, cut busywork','Knowing what is happening and removing repeat tasks.','rows',[2,9]]],off=0;
+G.forEach(function(g,gi){var h=el('div','grp');h.appendChild(el('h3',null,g[0]));h.appendChild(el('span',null,g[1]));$('#sol').appendChild(h);
+ var host=el('div','rows '+g[2]);$('#sol').appendChild(host);
+ rows(host,g[3].map(function(k){var s=S[k];return{t:s[0],d:s[1],mini:s[2],cols:[['The problem',s[3]],['What we could create',s[4]]],note:s[5]}}),'s'+gi+'_',off);off+=g[3].length});
+var interest=$('#interest');
+interest.addEventListener('change',function(){var o=interest.value==='Something else';$('#otherwrap').hidden=!o;$('#other').required=o;$('#other').disabled=!o;if(!o)$('#other').value=''});
+rows($('#opt'),[
+{t:'The Diagnostic',d:'Understand first.',cols:[['Who it suits','Owners who know something is off but not exactly what, and want a clear picture and a plan before spending on a build.'],['What it includes',['Review of how your business runs today','Gap and friction analysis','Written recommendations','Priority action roadmap']]]},
+{t:'The Full Build',d:'Build it properly.',cols:[['Who it suits','Owners ready to put the structure in place. We assess, design and build the systems, then train your team to use them.'],['What it includes',['Everything in the Diagnostic','Business OS in Notion, where it fits','SOPs for critical workflows','Team structure and role design','Handover and team walkthrough']]]},
+{t:'The Retainer',d:'Keep it working.',cols:[['Who it suits','Businesses that already have systems and want them looked after as the business changes.'],['What it includes',['Ongoing system management','Monthly operational reviews','New SOPs as the business evolves','Dedicated operational support']]]}
+].map(function(o){o.note='This is a separately scoped engagement. We propose the scope and fee after the discovery conversation, and you decide whether to go ahead.';return o}),'o',0);
+
+/* demos */
+var tabs=$$('.dtabs [role=tab]');
+tabs.forEach(function(t,i){t.addEventListener('click',function(){tabs.forEach(function(x,k){x.setAttribute('aria-selected',k===i);x.tabIndex=k===i?0:-1;$('#p'+k).hidden=k!==i})})});
+tabs.forEach(function(t,i){t.addEventListener('keydown',function(e){var k=e.key,n=null;if(k==='ArrowRight')n=tabs[(i+1)%tabs.length];else if(k==='ArrowLeft')n=tabs[(i+tabs.length-1)%tabs.length];else if(k==='Home')n=tabs[0];else if(k==='End')n=tabs[tabs.length-1];if(n){n.click();n.focus();e.preventDefault()}})});
+var PPL=['Amara','Tobi','Zainab'],DAYS=['Mon','Tue','Wed','Thu','Fri'],SN=['To do','In progress','Done'];
+var T=[['Send Q4 proposal to wholesale client',0,'Sales',4,0],['Follow up with two warm enquiries',1,'Sales',1,1],['Review new-hire onboarding checklist',2,'Team',2,0],['Update supplier contract dates',0,'Admin',3,2],['Approve next week\u2019s content plan',2,'Content',0,1],['Reconcile this month\u2019s expenses',1,'Admin',4,0],['Book team handover meeting',2,'Team',2,2]];
+var cur=-1,ch=$('#chips');
+['All'].concat(PPL).forEach(function(n,i){var b=el('button');b.type='button';b.setAttribute('aria-pressed',i===0);
+ if(i)b.innerHTML='<span class="av"></span>';b.appendChild(document.createTextNode(n));if(i)$('.av',b).textContent=n[0];
+ b.addEventListener('click',function(){cur=i-1;$$('button',ch).forEach(function(x){x.setAttribute('aria-pressed',x===b)});drawT()});ch.appendChild(b)});
+function drawT(){var h=$('#tasks');h.innerHTML='';
+ T.forEach(function(t){if(cur>=0&&t[1]!==cur)return;
+  var d=el('div','tk'+(t[4]===2?' done':'')),a=el('span','av',PPL[t[1]][0]);a.title=PPL[t[1]];
+  var m=el('span','tt',t[0]+' ('+t[2]+')');var due=el('span','dd',DAYS[t[3]]);
+  var s=el('button','st s'+t[4]);s.type='button';s.innerHTML='<i></i><span></span>';$('span',s).textContent=SN[t[4]];
+  s.setAttribute('aria-label','Status: '+SN[t[4]]+'. Task: '+t[0]+'. Click to change.');
+  s.dataset.i=T.indexOf(t);s.addEventListener('click',function(){var k=T.indexOf(t);t[4]=(t[4]+1)%3;drawT();var f=$('.st[data-i="'+k+'"]');if(f)f.focus()});
+  d.appendChild(a);d.appendChild(m);d.appendChild(due);d.appendChild(s);h.appendChild(d)});
+ var L=T.filter(function(t){return cur<0||t[1]===cur});var c=[0,0,0];L.forEach(function(t){c[t[4]]++});$('#scope').textContent=cur<0?'Showing all '+T.length+' tasks':'Showing '+PPL[cur]+'\u2019s '+L.length+' tasks';$('#k0').textContent=c[0];$('#k1').textContent=c[1];$('#k2').textContent=c[2];
+ $('#kb').style.width=Math.round(c[2]/(L.length||1)*100)+'%';
+ var w=$('#week');w.innerHTML='';DAYS.forEach(function(dn,di){var n=L.filter(function(t){return t[3]===di&&t[4]<2}).length,d=el('div'),i=el('i');i.style.height=(n*14)+'px';d.appendChild(i);d.appendChild(el('span',null,dn));w.appendChild(d)})}
+drawT();
+var STG=['Idea','Drafting','Approval','Scheduled'];
+var P=[['Behind-the-scenes studio reel','Instagram','Tobi','Tue',0],['Client onboarding explainer','Blog','Amara','Thu',1],['Monthly newsletter','Email','Zainab','Fri',1],['Seasonal offer announcement','Instagram','Tobi','Wed',2],['Team spotlight post','LinkedIn','Amara','Mon',3]];
+function drawB(){var bd=$('#board');bd.innerHTML='';
+ STG.forEach(function(n,ci){var c=el('div','col'),h=el('h4',null,n);h.appendChild(el('span',null,P.filter(function(p){return p[4]===ci}).length));c.appendChild(h);
+  P.forEach(function(p){if(p[4]!==ci)return;var d=el('div','pc');d.appendChild(el('div',null,p[0]));
+   var m=el('div','m');m.appendChild(el('span','ch',p[1]));var a=el('span','av',p[2][0]);a.title=p[2];m.appendChild(a);m.appendChild(el('span',null,p[3]));d.appendChild(m);
+   var mv=el('div','mv');
+   [['\u2190',-1,'Move back'],['\u2192',1,'Move forward']].forEach(function(x){var b=el('button',null,x[0]);b.type='button';b.setAttribute('aria-label',x[2]+': '+p[0]);b.disabled=(ci+x[1]<0||ci+x[1]>3);b.dataset.k=P.indexOf(p)+'_'+x[1];b.addEventListener('click',function(){var k=P.indexOf(p)+'_'+x[1];p[4]+=x[1];drawB();var f=$('[data-k="'+k+'"]');if(f&&!f.disabled)f.focus();else{f=$('[data-k^="'+P.indexOf(p)+'_"]:not(:disabled)');if(f)f.focus()}});mv.appendChild(b)});
+   d.appendChild(mv);c.appendChild(d)});
+  bd.appendChild(c)})}
+drawB();
+
+/* process progress */
+var st=$('#steps'),lis=$$('li',st);
+function proc(){var r=st.getBoundingClientRect(),v=innerHeight,p=cl((v*.78-r.top)/(r.height+v*.1));
+ if(reduce.matches)p=1;st.style.setProperty('--p',(p*100).toFixed(1)+'%');lis.forEach(function(l,i){l.classList.toggle('on',p>=i/5+.04||reduce.matches)})}
+addEventListener('scroll',proc,{passive:true});addEventListener('resize',proc);proc();
+
+/* self-check */
+var Q=[['Tasks or requests get dropped because nobody clearly owns them','Team Operations'],['Work slows down when I am not there to answer questions','Business Knowledge Hub'],['I pull reports or numbers together by hand','Business Reporting'],['Leads and client details are spread across inboxes, chats and notes','Client Management'],['The same admin steps repeat every week','Workflow Automation'],['Content is planned and approved in too many places','Content Workspace']];
+var qs=$('#qs'),res=$('#res'),go=$('#chkgo'),sel=[];
+Q.forEach(function(q){var l=el('label','q'),c=el('input');c.type='checkbox';c.addEventListener('change',upd);l.appendChild(c);l.appendChild(el('span',null,q[0]));qs.appendChild(l)});
+function upd(){sel=$$('input',qs).map(function(c,i){return c.checked?Q[i]:null}).filter(Boolean);go.hidden=!sel.length;
+ res.textContent=sel.length?sel.length+' of '+Q.length+' sound familiar. Worth talking about: '+sel.map(function(q){return q[1]}).join(', ')+'. This is a starting point for a conversation, not a diagnosis.':'Tick anything that sounds familiar.'}
+upd();
+go.addEventListener('click',function(){interest.value=sel[0][1];interest.dispatchEvent(new Event('change'));
+ var ta=$('textarea[name=challenge]');if(!ta.value)ta.value='From the self-check: '+sel.map(function(q){return q[0]}).join('; ')+'.';
+ $('#contact').scrollIntoView()});
+
+/* optional photo band: hidden if the file is missing */
+var pl=$('#plate'),pim=$('img',pl);pim.addEventListener('error',function(){pl.hidden=true});pim.src=pim.getAttribute('data-src');
+
+/* founder photo fallback */
+var img=$('#fphoto');img.addEventListener('error',function(){img.hidden=true});img.src=img.getAttribute('data-src');
+
+/* enquiry form (Netlify Forms) */
+var f=$('#form'),ok=$('#ok'),er=$('#err');
+f.addEventListener('submit',function(ev){ev.preventDefault();er.classList.remove('show');
+ var sb=$('button[type=submit]',f),lab=sb.textContent;
+ if(interest.value!=='Something else'){$('#other').value='';$('#other').disabled=true}
+ sb.disabled=true;sb.textContent='Sending...';
+ fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()})
+ .then(function(r){if(!r.ok)throw new Error('x');f.hidden=true;ok.classList.add('show');ok.focus()})
+ .catch(function(){er.classList.add('show');sb.disabled=false;sb.textContent=lab})});
+})();
+</script>
 </body>
 </html>
