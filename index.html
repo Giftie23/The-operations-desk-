@@ -195,8 +195,9 @@ details p{padding:0 40px 24px 0;color:var(--muted);max-width:56ch}
 figure{position:relative;aspect-ratio:4/5;background:var(--navy);overflow:hidden;width:100%;max-width:600px}
 figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 figure .fb{position:absolute;inset:0;display:grid;place-items:center;color:var(--paper);font-size:clamp(64px,10vw,120px);font-weight:500;letter-spacing:-.06em}
-.js figure.rv{clip-path:inset(100% 0 0 0);transition:clip-path 1.3s var(--ease),opacity .3s}
-.js figure.rv.in{clip-path:inset(0)}
+.js figure.rv{opacity:1;transform:none}
+.js figure.rv>*{clip-path:inset(100% 0 0 0);transition:clip-path 1.3s var(--ease)}
+.js figure.rv.in>*{clip-path:inset(0)}
 .ftext{padding-bottom:12px}
 .ftext p{font-size:clamp(17px,1.5vw,20px);line-height:1.65;max-width:46ch;margin-bottom:20px}
 .ftext p.lead{font-size:clamp(22px,2.5vw,33px);line-height:1.28;letter-spacing:-.03em;max-width:30ch;margin-bottom:28px}
@@ -262,7 +263,8 @@ footer a{text-decoration:none}footer a:hover{color:#fff;text-decoration:underlin
  html{scroll-behavior:auto}
  *,*::before,*::after{animation:none!important;transition:none!important}
  .story{height:auto}.pin{position:static;height:auto;padding-top:96px;padding-bottom:56px}
- .js .rv,.js figure.rv{opacity:1!important;transform:none!important;clip-path:none!important}
+ .js .rv,.js figure.rv{opacity:1!important;transform:none!important}
+ .js figure.rv>*{clip-path:none!important}
 }
 </style>
 </head>
@@ -431,9 +433,8 @@ footer a{text-decoration:none}footer a:hover{color:#fff;text-decoration:underlin
         <div class="clinks"><a href="mailto:giftieobeten@gmail.com">giftieobeten@gmail.com</a><a href="https://www.instagram.com/theoperationsdesk" target="_blank" rel="noopener">@theoperationsdesk</a></div>
       </div>
       <div>
-        <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="form" aria-describedby="privacy">
-          <input type="hidden" name="form-name" value="contact">
-          <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <form name="contact" method="POST" action="https://formspree.io/f/maqpgdnj" id="form" aria-describedby="privacy">
+          <p class="hp"><label>Leave this empty <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
           <fieldset><legend>You</legend>
             <label>Your name<input name="name" required autocomplete="name"></label>
             <label>Email<input type="email" name="email" required autocomplete="email"></label>
@@ -612,15 +613,19 @@ var pl=$('#plate'),pim=$('img',pl);pim.addEventListener('error',function(){pl.hi
 /* founder photo fallback */
 var img=$('#fphoto');img.addEventListener('error',function(){img.hidden=true});img.src=img.getAttribute('data-src');
 
-/* enquiry form (Netlify Forms) */
+/* enquiry form (Formspree) */
 var f=$('#form'),ok=$('#ok'),er=$('#err');
-f.addEventListener('submit',function(ev){ev.preventDefault();er.classList.remove('show');
+var busy=false,ERR=er.textContent;
+f.addEventListener('submit',function(ev){ev.preventDefault();if(busy)return;er.classList.remove('show');er.textContent=ERR;
  var sb=$('button[type=submit]',f),lab=sb.textContent;
  if(interest.value!=='Something else'){$('#other').value='';$('#other').disabled=true}
- sb.disabled=true;sb.textContent='Sending...';
- fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()})
- .then(function(r){if(!r.ok)throw new Error('x');f.hidden=true;ok.classList.add('show');ok.focus()})
- .catch(function(){er.classList.add('show');sb.disabled=false;sb.textContent=lab})});
+ busy=true;sb.disabled=true;sb.textContent='Sending...';
+ function fail(msg){er.textContent=(msg?msg+' ':'')+ERR;er.classList.add('show');busy=false;sb.disabled=false;sb.textContent=lab}
+ fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+ .then(function(r){return r.json().catch(function(){return{}}).then(function(j){
+  if(r.ok){f.hidden=true;ok.classList.add('show');ok.focus();busy=false}
+  else fail(j&&j.errors&&j.errors.length?j.errors.map(function(e){return e.message}).join(' '):'')})})
+ .catch(function(){fail('')})});
 })();
 </script>
 </body>
